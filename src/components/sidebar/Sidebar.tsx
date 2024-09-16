@@ -1,0 +1,231 @@
+import { Home, Person, Settings } from "@mui/icons-material";
+import InfoIcon from "@mui/icons-material/Info";
+import assets from "../../assets";
+import {
+  Box,
+  Divider,
+  IconButton,
+  List,
+  ListItemButton,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import DisplayAllUsers from "./DispalyAllUsers";
+// import i18n from "i18next";
+import { useTranslation } from "react-i18next";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { useAppSelector } from "../../redux/hooks";
+import ChatIcon from "@mui/icons-material/Chat";
+
+type Users = {
+  uid: string;
+  coverPicture: string;
+  createdAt: string;
+  followers: [];
+  followings: [];
+  profilePicture: string;
+  salesTalk: string;
+  updatedAt: string;
+  username: string;
+};
+
+const Sidebar = () => {
+  // const UID1 = process.env.REACT_APP_UID1;
+  const UID2 = process.env.REACT_APP_UID2;
+
+  const [currentUserData, setCurrentUserData] = useState<Users>();
+
+  const lang = useAppSelector((state) => state.lang);
+  const [t, i18n] = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(lang.lang);
+    // dispatch(setLanguage(lang));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [Link, lang, i18n]);
+
+  useEffect(() => {
+    const fetchUser = () => {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const uid = user.uid;
+          const docRef = doc(db, "users", uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            setCurrentUserData({
+              uid: docSnap.data().uid,
+              coverPicture: docSnap.data().coverPicture,
+              createdAt: docSnap.data().createdAt,
+              followers: docSnap.data().followers,
+              followings: docSnap.data().followings,
+              profilePicture: docSnap.data().profilePicture,
+              salesTalk: docSnap.data().salesTalk,
+              updatedAt: docSnap.data().updatedAt,
+              username: docSnap.data().username,
+            });
+          } else {
+            console.log("No such document!11");
+          }
+        } else {
+          console.log("No such document!22");
+        }
+      });
+    };
+    fetchUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <Box>
+      <List
+        sx={{
+          flex: 2.5,
+          maxWidth: 412,
+          height: "100vh",
+          padding: "10px",
+          backgroundColor: assets.colors.secondary,
+        }}
+      >
+        <ListItemButton>
+          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <IconButton>
+                <Home />
+              </IconButton>
+              <Typography variant="body1" fontWeight="700">
+                {t("ホーム")}
+              </Typography>
+            </Box>
+          </Link>
+        </ListItemButton>
+        <ListItemButton>
+          <Link to={"/talk"} style={{ textDecoration: "none", color: "black" }}>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <IconButton>
+                <ChatIcon />
+              </IconButton>
+              <Typography variant="body1" fontWeight="700">
+                {t("トーク")}
+              </Typography>
+            </Box>
+          </Link>
+        </ListItemButton>
+        <ListItemButton>
+          <Link
+            to={"/profile"}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <IconButton>
+                <Person />
+              </IconButton>
+              <Typography variant="body1" fontWeight="700">
+                {t("プロファイル")}
+              </Typography>
+            </Box>
+          </Link>
+        </ListItemButton>
+
+        {currentUserData?.uid === UID2 ? (
+          <ListItemButton>
+            <Link
+              to={"/information"}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+                <Typography variant="body1" fontWeight="700">
+                  {t("教会からお知らせ")}
+                </Typography>
+                {/* <PositionedMenuAdomin /> */}
+              </Box>
+            </Link>
+          </ListItemButton>
+        ) : (
+          ""
+        )}
+
+        <ListItemButton>
+          <Box>
+            <Link
+              to={"/pSettings"}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <IconButton>
+                  <Settings />
+                </IconButton>
+                {/* <PositionedMenuSetting /> */}
+                <Typography variant="body1" fontWeight="700">
+                  {t("設定")}
+                </Typography>
+              </Box>
+            </Link>
+          </Box>
+        </ListItemButton>
+
+        <Divider sx={{ margin: " 15px " }} />
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography
+            sx={{
+              marginLeft: "10px",
+              fontSize: "small",
+              fontWeight: "550",
+              marginTop: "5px",
+            }}
+          >
+            {t("登録者メンバー")}
+          </Typography>
+          <Typography
+            sx={{ fontSize: "small", fontWeight: "550", marginTop: "5px" }}
+          >
+            {t("表示")}
+          </Typography>
+        </Box>
+        <DisplayAllUsers />
+      </List>
+    </Box>
+  );
+};
+export default Sidebar;

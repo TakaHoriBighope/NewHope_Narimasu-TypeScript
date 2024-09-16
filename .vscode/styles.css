@@ -1,0 +1,14 @@
+.sidebar .explorer-viewlet .label-name,
+.editor .title .label-name,
+.monaco-icon-label
+  > .monaco-icon-label-container
+  > .monaco-icon-name-container
+  > .label-name,
+.monaco-icon-label
+  > .monaco-icon-label-container
+  > .monaco-icon-description-container
+  > .label-description,
+.search-view .linematch > .match {
+  font-family: "Fira Code" !important;
+  font-size: 28px;
+}

@@ -1,0 +1,127 @@
+/* *::before,
+*::after {
+  box-sizing: border-box;
+} */
+
+/* body {
+  background-color: gray;
+  height: 100vh;
+} */
+
+/* body, */
+/* header,
+ul,
+li,
+div {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+} */
+
+ul,
+li {
+  list-style: none;
+}
+
+button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  outline: none;
+  border-radius: 0;
+  letter-spacing: inherit;
+  -webkit-tap-highlight-color: rgba(242, 236, 236, 0);
+  cursor: pointer;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  /* padding: 2rem; */
+  z-index: 999;
+  background-color: #2c517c;
+}
+
+.toggleButon {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  z-index: 2;
+  margin-left: 10px;
+  margin-top: 13px;
+}
+
+.toggleButon > span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  display: inline-block;
+  width: 100%;
+  height: 2px;
+  background-color: black;
+}
+
+.line-1 {
+  transform: translate(0, -12px);
+}
+
+.line-2 {
+  transform: translate(0, -6px);
+}
+.line-3 {
+  transform: translate(0, 2x);
+}
+
+.toggleButon[aria-expanded="true"] > .line-1 {
+  transition-duration: 0.8s;
+  transform: translate(0, 0) rotate(-45deg);
+}
+
+.toggleButon[aria-expanded="true"] > .line-2 {
+  transition-duration: 0.1s;
+  transform: translate(-30px, 0);
+}
+.toggleButon[aria-expanded="true"] > .line-3 {
+  transition-duration: 0.8s;
+  transform: translate(0, 0) rotate(45deg);
+}
+
+.navigation {
+  display: none;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+  padding-top: 3rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 45%;
+  height: 100vh;
+  background-color: rgb(240, 235, 235);
+}
+
+.navigation[aria-hidden="false"] {
+  display: flex;
+}
+
+.navigation > ul {
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  flex-direction: column;
+  gap: 1rem 0;
+}
+
+.navigation > ul > li {
+  text-align: left;
+}

@@ -1,6 +1,5 @@
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import AuthLayout from "./components/layout/AuthLayout";
 import AppLayout from "./components/layout/AppLayout";
@@ -15,7 +14,6 @@ import PSettings from "./pages/PSettings";
 import { useEffect } from "react";
 import { auth, db } from "./firebase";
 import { login, logout } from "./redux/features/userSlice";
-import OtheProfile from "./components/home/OtheProfile";
 import Talk from "./pages/Talk";
 import NotMatch from "./pages/NotMatch";
 import { useAppDispatch } from "./redux/hooks";
@@ -72,9 +70,7 @@ export const App = () => {
             </Route>
             <Route path="/" element={<AppLayout />}>
               <Route index element={<Home />} />
-              <Route path="profile" element={<Profile />} />
               <Route path="share" element={<Share />} />
-              <Route path="otherprofile" element={<OtheProfile />} />
               <Route path="timeline" element={<TimeLine mode="home" />} />
               <Route path="information" element={<Information mode="main" />} />
               <Route path="msettings" element={<MSettings />} />

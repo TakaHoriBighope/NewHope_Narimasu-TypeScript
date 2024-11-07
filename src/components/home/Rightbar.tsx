@@ -14,8 +14,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAppSelector } from "../../redux/hooks";
-import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
-import Topbar from "./Topbar";
+// import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
 
 interface Infos {
   createdAt: Timestamp;
@@ -26,7 +25,7 @@ interface Infos {
 }
 
 const Rightbar = () => {
-  const isSp = useMediaQuery(mediaQuery.sp);
+  // const isSp = useMediaQuery(mediaQuery.sp);
   const loginUser = useAppSelector((state) => state.user.user);
 
   const HomeRightbar = () => {

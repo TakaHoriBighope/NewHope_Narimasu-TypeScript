@@ -1,4 +1,4 @@
-import { Home, Person, Settings } from "@mui/icons-material";
+import { Home, Settings } from "@mui/icons-material";
 import InfoIcon from "@mui/icons-material/Info";
 import assets from "../../assets";
 import {
@@ -125,7 +125,7 @@ const Sidebar = () => {
             </Box>
           </Link>
         </ListItemButton>
-        <ListItemButton>
+        {/*<ListItemButton>
           <Link
             to={"/profile"}
             style={{ textDecoration: "none", color: "black" }}
@@ -145,7 +145,7 @@ const Sidebar = () => {
               </Typography>
             </Box>
           </Link>
-        </ListItemButton>
+        </ListItemButton>*/}
 
         {currentUserData?.uid === UID2 ? (
           <ListItemButton>

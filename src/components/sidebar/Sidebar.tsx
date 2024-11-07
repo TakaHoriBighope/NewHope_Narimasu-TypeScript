@@ -120,7 +120,7 @@ const Sidebar = () => {
                 <ChatIcon />
               </IconButton>
               <Typography variant="body1" fontWeight="700">
-                {t("トーク")}
+                {t("グループトーク")}
               </Typography>
             </Box>
           </Link>

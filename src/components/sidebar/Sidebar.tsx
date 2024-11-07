@@ -125,27 +125,6 @@ const Sidebar = () => {
             </Box>
           </Link>
         </ListItemButton>
-        {/*<ListItemButton>
-          <Link
-            to={"/profile"}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <IconButton>
-                <Person />
-              </IconButton>
-              <Typography variant="body1" fontWeight="700">
-                {t("プロファイル")}
-              </Typography>
-            </Box>
-          </Link>
-        </ListItemButton>*/}
 
         {currentUserData?.uid === UID2 ? (
           <ListItemButton>

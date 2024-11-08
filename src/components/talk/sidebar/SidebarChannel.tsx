@@ -1,9 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { DocumentData } from "firebase/firestore";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { setChannelInfo } from "../../../redux/features/channelSlice";
 import { closeGroupModal } from "../../../redux/features/groupModalSlice";
+import StarIcon from "@mui/icons-material/Star";
 
 type Props = {
   id: string;
@@ -45,17 +46,19 @@ const SidebarChannel = (props: Props) => {
           dispatch(closeGroupModal());
         }}
       >
-        <Typography sx={{ fontWeight: "600" }}>
-          <span
-            style={{
-              fontSize: "20px",
-              paddingRight: "10px",
-            }}
-          >
-            #
-          </span>
-          {channel.channel.channelName}
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography sx={{ fontWeight: "600" }}>
+            <IconButton>
+              <StarIcon
+                sx={{
+                  fontSize: "20px",
+                  color: "blueviolet",
+                }}
+              />
+            </IconButton>
+            {channel.channel.channelName}
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );

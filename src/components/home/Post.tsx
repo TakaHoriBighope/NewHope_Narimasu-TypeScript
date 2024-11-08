@@ -13,9 +13,9 @@ import {
   deleteDoc,
   Timestamp,
 } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
-import { setPostingUser } from "../../redux/features/postingSlice";
-import { useAppDispatch } from "../../redux/hooks";
+// import { useNavigate } from "react-router-dom";
+// import { setPostingUser } from "../../redux/features/postingSlice";
+// import { useAppDispatch } from "../../redux/hooks";
 
 type postProps = {
   id: string;
@@ -43,12 +43,12 @@ type Users = {
 const Post = (props: postProps) => {
   const { id, post } = props;
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const [like, setLike] = useState<number>(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [postingUserData, setPostingUserData] = useState<Users>();
   const loginUser = auth.currentUser;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     //postしたユーザーのDataをget
@@ -84,10 +84,10 @@ const Post = (props: postProps) => {
     setIsLiked(!isLiked);
   };
 
-  const handleClickToOtherProfile = () => {
-    dispatch(setPostingUser(postingUserData));
-    navigate("/otherprofile/postingUserData.uid");
-  };
+  // const handleClickToOtherProfile = () => {
+  //   dispatch(setPostingUser(postingUserData));
+  //   navigate("/otherprofile/postingUserData.uid");
+  // };
 
   const deletePost = async () => {
     await deleteDoc(doc(db, "posts", id));
@@ -127,7 +127,7 @@ const Post = (props: postProps) => {
             <Avatar
               src={postingUserData?.profilePicture}
               alt=""
-              onClick={() => handleClickToOtherProfile()}
+              // onClick={() => handleClickToOtherProfile()}
             />
             <Typography sx={{ pl: 2, fontSize: "15px", fontWeight: 550 }}>
               {postingUserData?.username}

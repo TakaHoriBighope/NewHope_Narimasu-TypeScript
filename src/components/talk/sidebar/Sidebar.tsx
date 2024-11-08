@@ -59,7 +59,7 @@ const Sidebar = () => {
     if (lang.lang === "ja") {
       text = "新しいチャンネルを作成します。あなたが発起人です。";
     } else {
-      text = "Let's make a new channel! You are a proposer.";
+      text = "Let's cleate a new channel! You are a proposer.";
     }
     let channelName: string | null = prompt(text);
 
@@ -266,8 +266,9 @@ const Sidebar = () => {
                 <Typography
                   sx={{
                     color: "#686a6e",
-                    fontWeight: "500",
+                    fontWeight: "900",
                     marginLeft: "5px",
+                    fontSize: "18px",
                   }}
                 >
                   {t("ホームへ")}

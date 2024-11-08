@@ -7,6 +7,7 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { openModal } from "../../../redux/features/modalSlice";
 import DisplayAllmembers from "../groupChannel/DisplayAllmembers";
 import { mediaQuery, useMediaQuery } from "../../../utiles/useMediaQuery";
+import StarIcon from "@mui/icons-material/Star";
 
 type Props = {
   channelName: string | null;
@@ -43,7 +44,12 @@ const ChatHeader = (props: Props) => {
         <Typography
           sx={{ paddingLeft: "17px", fontSize: "1.2rem", color: "#393b52" }}
         >
-          #
+          <StarIcon
+            sx={{
+              fontSize: "20px",
+              color: "blueviolet",
+            }}
+          />
         </Typography>
         <Typography
           sx={{
@@ -104,24 +110,33 @@ const ChatHeader = (props: Props) => {
           justifyContent: "center",
         }}
       >
-        <Typography
-          sx={{ paddingLeft: "17px", fontSize: "1.2rem", color: "#393b52" }}
-        >
-          #
-        </Typography>
-        <Typography
-          sx={{
-            paddingLeft: "5px",
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            color: "#393b52",
-            fontSize: "1.3rem",
-            fontWeight: "550",
-          }}
-        >
-          {channelName}
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography
+            sx={{ paddingLeft: "17px", fontSize: "1.2rem", color: "#393b52" }}
+          >
+            <IconButton>
+              <StarIcon
+                sx={{
+                  fontSize: "20px",
+                  color: "blueviolet",
+                }}
+              />
+            </IconButton>
+          </Typography>
+          <Typography
+            sx={{
+              paddingLeft: "5px",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              color: "#393b52",
+              fontSize: "1.3rem",
+              fontWeight: "550",
+            }}
+          >
+            {channelName}
+          </Typography>
+        </Box>
       </Box>
       <Box sx={{ paddingRight: "25px" }}>
         {channelProp === loginUser?.uid ? (

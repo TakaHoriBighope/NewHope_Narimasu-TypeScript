@@ -1,5 +1,5 @@
 import { Box, IconButton, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
@@ -8,20 +8,35 @@ import { openModal } from "../../../redux/features/modalSlice";
 import DisplayAllmembers from "../groupChannel/DisplayAllmembers";
 import { mediaQuery, useMediaQuery } from "../../../utiles/useMediaQuery";
 import StarIcon from "@mui/icons-material/Star";
+import { db } from "../../../firebase";
+import { getDoc, doc } from "firebase/firestore";
 
 type Props = {
   channelName: string | null;
+  channelProp: string | null;
 };
 
 const ChatHeader = (props: Props) => {
-  const { channelName } = props;
+  const { channelName, channelProp } = props;
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.modal);
   console.log(isOpen);
   const isSp = useMediaQuery(mediaQuery.sp);
 
   const loginUser = useAppSelector((state) => state.user.user);
-  const channelProp = useAppSelector((state) => state.channel.channelProp);
+  // const channelProp = useAppSelector((state) => state.channel.channelProp);
+  const [propName, setPropName] = useState<string>("");
+
+  const docRef = doc(db, "users", String(channelProp));
+  useEffect(() => {
+    const getUsername = async () => {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setPropName(docSnap.data().username);
+      }
+    };
+    getUsername();
+  });
 
   if (isSp) {
     <Box
@@ -135,6 +150,11 @@ const ChatHeader = (props: Props) => {
             }}
           >
             {channelName}
+          </Typography>
+          <Typography
+            sx={{ color: "#7b7c85", marginLeft: "10px", fontSize: "14px" }}
+          >
+            {propName}
           </Typography>
         </Box>
       </Box>

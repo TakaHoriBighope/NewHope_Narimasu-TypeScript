@@ -1,31 +1,25 @@
-import { Avatar, Box, Typography } from "@mui/material";
-import { Timestamp } from "firebase/firestore";
+import { Avatar, Box, Typography, Divider } from "@mui/material";
 import React from "react";
+import { type Message } from "../../../types/message";
 
 type Props = {
-  timestamp: Timestamp;
-  message: string;
-  user: {
-    uid: string;
-    profilePicture: string;
-    email: string;
-    displayName: string;
-  };
+  message: Message;
 };
 
 const ChatMessage = (props: Props) => {
-  const { message, timestamp, user } = props;
+  const { message } = props;
+  const { talk, createdAt, profilePicture, username } = message;
   return (
     <Box>
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
+          alignItems: "top",
           paddingLeft: "5px",
           color: "black",
         }}
       >
-        <Avatar src={user?.profilePicture} />
+        <Avatar src={profilePicture} sx={{ marginTop: "15px" }} />
         <Box
           sx={{
             display: "flex",
@@ -34,12 +28,13 @@ const ChatMessage = (props: Props) => {
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography>{user?.displayName}</Typography>
+            <Typography>{username}</Typography>
             <Typography sx={{ paddingLeft: "15px", color: "#7b7c85" }}>
-              {new Date(timestamp?.toDate()).toLocaleString()}
+              {new Date(createdAt?.toDate()).toLocaleString()}
             </Typography>
           </Box>
-          <Typography sx={{ fontWeight: "510" }}>{message}</Typography>
+          <Typography sx={{ fontWeight: "510" }}>{talk}</Typography>
+          <Divider sx={{ margin: "3px" }} />
         </Box>
       </Box>
     </Box>

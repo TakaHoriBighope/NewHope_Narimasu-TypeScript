@@ -8,7 +8,6 @@ import { db } from "../../../firebase";
 import {
   CollectionReference,
   DocumentData,
-  Timestamp,
   addDoc,
   collection,
   serverTimestamp,
@@ -21,17 +20,7 @@ import { mediaQuery, useMediaQuery } from "../../../utiles/useMediaQuery";
 import Sidebar from "../sidebar/Sidebar";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import { openGroupModal } from "../../../redux/features/groupModalSlice";
-
-interface Messages {
-  timestamp: Timestamp;
-  message: string;
-  user: {
-    uid: string;
-    profilePicture: string;
-    email: string;
-    displayName: string;
-  };
-}
+import { type Message } from "../../../types/message";
 
 const Chat = () => {
   const [inputText, setInputText] = useState<string>("");
@@ -49,7 +38,7 @@ const Chat = () => {
   console.log(isGroupOpen);
   const [t] = useTranslation();
 
-  const [messages, setMessages] = useState<Messages[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     let collectionRef = collection(
@@ -61,20 +50,43 @@ const Chat = () => {
 
     const collectionRefOrderBy = query(
       collectionRef,
-      orderBy("timestamp", "desc")
+      orderBy("createdAt", "desc")
     );
 
-    onSnapshot(collectionRefOrderBy, (snapshot) => {
-      let results: Messages[] = [];
-      snapshot.docs.forEach((doc) => {
-        results.push({
-          timestamp: doc.data().timestamp,
-          message: doc.data().message,
-          user: doc.data().user,
+    const unsubscribe = onSnapshot(
+      collectionRefOrderBy,
+      (snapshot) => {
+        const results: Message[] = [];
+        snapshot.docs.forEach((doc) => {
+          const {
+            talk,
+            createdAt,
+            uid,
+            profilePicture,
+            username,
+            email,
+            read,
+          } = doc.data();
+          results.push({
+            createdAt,
+            talk,
+            uid,
+            profilePicture,
+            username,
+            email,
+            read,
+          });
         });
-      });
-      setMessages(results);
-    });
+        setMessages(results);
+        console.log(messages);
+      },
+      (error) => {
+        // console.log("onSnapshot at Talk, error");
+      }
+    );
+    return () => {
+      unsubscribe(); // 追加
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [channelId, channelMembers]);
 
@@ -118,7 +130,7 @@ const Chat = () => {
               <IconButton sx={{ marginLeft: "10px", marginTop: "5px" }}>
                 <MenuBookIcon onClick={() => dispatch(openGroupModal())} />
               </IconButton>
-              <ChatHeader channelName={channelName} />
+              <ChatHeader channelName={channelName} channelProp={channelProp} />
             </Box>
             {isGroupOpen.isGroupOpen ? <Sidebar /> : null}
             <Box
@@ -128,12 +140,7 @@ const Chat = () => {
                 channelProp === loginUser?.uid ||
                 channelMembers.includes(loginUser?.uid ?? "") ? (
                   messages.map((message, index) => (
-                    <ChatMessage
-                      key={index}
-                      message={message.message}
-                      timestamp={message.timestamp}
-                      user={message.user}
-                    />
+                    <ChatMessage key={index} message={message} />
                   ))
                 ) : (
                   <h3
@@ -219,7 +226,7 @@ const Chat = () => {
       }}
     >
       {/* chatheader */}
-      <ChatHeader channelName={channelName} />
+      <ChatHeader channelName={channelName} channelProp={channelProp} />
 
       {/* chat-message */}
       <Box sx={{ height: "100vh", overflowY: "scroll" }}>
@@ -227,12 +234,7 @@ const Chat = () => {
           channelProp === loginUser?.uid ||
           channelMembers.includes(loginUser?.uid ?? "") ? (
             messages.map((message, index) => (
-              <ChatMessage
-                key={index}
-                message={message.message}
-                timestamp={message.timestamp}
-                user={message.user}
-              />
+              <ChatMessage message={message} key={index} />
             ))
           ) : (
             <h3

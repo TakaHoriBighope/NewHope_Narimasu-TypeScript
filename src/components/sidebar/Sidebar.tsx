@@ -19,6 +19,7 @@ import { auth, db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useAppSelector } from "../../redux/hooks";
 import ChatIcon from "@mui/icons-material/Chat";
+import StarIcon from "@mui/icons-material/Star";
 
 type Users = {
   uid: string;
@@ -178,7 +179,31 @@ const Sidebar = () => {
           </Box>
         </ListItemButton>
 
-        <Divider sx={{ margin: " 15px " }} />
+        <Divider sx={{ margin: " 5px " }} />
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <IconButton>
+            <StarIcon
+              sx={{
+                fontSize: "15px",
+                color: "blueviolet",
+              }}
+            />
+          </IconButton>
+          <Typography
+            sx={{
+              fontSize: "small",
+              fontWeight: "550",
+            }}
+          >
+            {t("投稿者選択")}
+          </Typography>
+        </Box>
         <Box
           sx={{
             display: "flex",

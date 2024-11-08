@@ -15,6 +15,7 @@ const SidebarChannel = (props: Props) => {
   const { id, channel } = props;
   const dispatch = useAppDispatch();
   const isGroupOpen = useAppSelector((state) => state.groupModal);
+
   console.log(isGroupOpen);
 
   return (
@@ -58,6 +59,7 @@ const SidebarChannel = (props: Props) => {
             </IconButton>
             {channel.channel.channelName}
           </Typography>
+          {/* <Box sx={{ flexDirection: "column" }}>{propName}</Box> */}
         </Box>
       </Box>
     </Box>

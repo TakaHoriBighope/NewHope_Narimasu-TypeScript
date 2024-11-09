@@ -70,7 +70,7 @@ const ShowInfos: React.FC<InfosProps> = ({ info }) => {
   };
 
   return (
-    <>
+    <Box>
       <Box
         sx={{
           display: "flex",
@@ -122,8 +122,8 @@ const ShowInfos: React.FC<InfosProps> = ({ info }) => {
           <GTranslateIcon />
         </IconButton>
       </Box>
-      <Divider sx={{ margin: "15px" }} />
-    </>
+      <Divider sx={{ margin: "10px" }} />
+    </Box>
   );
 };
 

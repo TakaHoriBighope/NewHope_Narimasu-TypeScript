@@ -93,7 +93,7 @@ const Topbar = () => {
           zIndex: 50,
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "baseline" }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <header className="header">
             <ToggleButton
               open={open}
@@ -104,7 +104,7 @@ const Topbar = () => {
             <Navigation id="navigation" open={open} />
           </header>
           <Typography
-            fontSize="15px"
+            fontSize="22px"
             color="white"
             fontWeight="bold"
             margin="0 0 0 25px"
@@ -112,7 +112,7 @@ const Topbar = () => {
           >
             {t("ニューホープ成増")}
           </Typography>
-          <Typography
+          {/* <Typography
             fontSize="8px"
             color="white"
             fontWeight="bold"
@@ -120,7 +120,7 @@ const Topbar = () => {
             textTransform="capitalize"
           >
             {t("ブルテンボード")}
-          </Typography>
+          </Typography> */}
         </Box>
         <Box
           sx={{

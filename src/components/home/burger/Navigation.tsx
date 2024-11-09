@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import "./styles.css";
 import { Box, IconButton, ListItemButton, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { Home, Person, Settings } from "@mui/icons-material";
+import { Home, Settings } from "@mui/icons-material";
 import ChatIcon from "@mui/icons-material/Chat";
 import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
@@ -131,28 +131,7 @@ export const Navigation: FC<Props> = ({ open, id }) => {
               </Link>
             </ListItemButton>
           </li>
-          <li>
-            <ListItemButton>
-              <Link
-                to={"/profile"}
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <IconButton>
-                    <Person />
-                  </IconButton>
-                  <Typography variant="body1" fontWeight="700">
-                    {t("プロファイル")}
-                  </Typography>
-                </Box>
-              </Link>
-            </ListItemButton>
-          </li>
+
           <li>
             {currentUserData?.uid === UID2 ? (
               <ListItemButton>
@@ -183,7 +162,7 @@ export const Navigation: FC<Props> = ({ open, id }) => {
             <ListItemButton>
               <Box>
                 <Link
-                  to={"/pSettings"}
+                  to={"/psettings"}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <Box

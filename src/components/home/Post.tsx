@@ -84,11 +84,6 @@ const Post = (props: postProps) => {
     setIsLiked(!isLiked);
   };
 
-  // const handleClickToOtherProfile = () => {
-  //   dispatch(setPostingUser(postingUserData));
-  //   navigate("/otherprofile/postingUserData.uid");
-  // };
-
   const deletePost = async () => {
     await deleteDoc(doc(db, "posts", id));
   };

@@ -10,7 +10,7 @@ const ChatMessage = (props: Props) => {
   const { message } = props;
   const { talk, createdAt, profilePicture, username } = message;
   return (
-    <Box>
+    <Box sx={{ margin: "5px" }}>
       <Box
         sx={{
           display: "flex",
@@ -34,9 +34,9 @@ const ChatMessage = (props: Props) => {
             </Typography>
           </Box>
           <Typography sx={{ fontWeight: "510" }}>{talk}</Typography>
-          <Divider sx={{ margin: "3px" }} />
         </Box>
       </Box>
+      <Divider sx={{ marginLeft: "10px", marginRight: "10px" }} />
     </Box>
   );
 };

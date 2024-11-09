@@ -10,7 +10,7 @@ import {
   DocumentData,
   addDoc,
   collection,
-  serverTimestamp,
+  Timestamp,
   onSnapshot,
   orderBy,
   query,
@@ -103,9 +103,12 @@ const Chat = () => {
     );
     // const docRef: DocumentReference<DocumentData> =
     await addDoc(collectionRef, {
-      message: inputText,
-      timestamp: serverTimestamp(),
-      user: loginUser,
+      talk: inputText,
+      createdAt: Timestamp.fromDate(new Date()),
+      uid: loginUser?.uid,
+      username: loginUser?.displayName,
+      profilePicture: loginUser?.profilePicture,
+      read: [],
     });
     setInputText("");
   };

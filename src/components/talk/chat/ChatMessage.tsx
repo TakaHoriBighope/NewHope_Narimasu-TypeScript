@@ -28,12 +28,16 @@ const ChatMessage = (props: Props) => {
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography>{username}</Typography>
-            <Typography sx={{ paddingLeft: "15px", color: "#7b7c85" }}>
+            <Typography sx={{ fontSize: "12px" }}>{username}</Typography>
+            <Typography
+              sx={{ fontSize: "12px", paddingLeft: "15px", color: "#7b7c85" }}
+            >
               {new Date(createdAt?.toDate()).toLocaleString()}
             </Typography>
           </Box>
-          <Typography sx={{ fontWeight: "510" }}>{talk}</Typography>
+          <Typography sx={{ fontSize: "14px", fontWeight: "510" }}>
+            {talk}
+          </Typography>
         </Box>
       </Box>
       <Divider sx={{ marginLeft: "10px", marginRight: "10px" }} />

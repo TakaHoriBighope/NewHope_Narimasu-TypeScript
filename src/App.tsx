@@ -1,26 +1,26 @@
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import AuthLayout from "./components/layout/AuthLayout";
 import AppLayout from "./components/layout/AppLayout";
+import Home from "./pages/Home";
+import Share from "./pages/Share";
+import Talk from "./pages/Talk";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Information from "./pages/Information";
+import MSettings from "./pages/MSettings";
+import PSettings from "./pages/PSettings";
+import NotMatch from "./pages/NotMatch";
 import TimeLine from "./components/home/TimeLine";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { blue } from "@mui/material/colors";
-import Information from "./pages/Information";
-import MSettings from "./pages/MSettings";
-import PSettings from "./pages/PSettings";
 import { useEffect } from "react";
 import { auth, db } from "./firebase";
 import { login, logout } from "./redux/features/userSlice";
-import Talk from "./pages/Talk";
-import NotMatch from "./pages/NotMatch";
 import { useAppDispatch } from "./redux/hooks";
 import { doc, getDoc } from "firebase/firestore";
 import { setDisplayName } from "./redux/features/displayNameSlice";
 import Rightbar from "./components/home/Rightbar";
-import Share from "./pages/Share";
 
 export const App = () => {
   const dispatch = useAppDispatch();

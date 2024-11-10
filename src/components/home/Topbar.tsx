@@ -85,7 +85,8 @@ const Topbar = () => {
         sx={{
           height: "38px",
           width: "100%",
-          backgroundColor: "#2c517c",
+          // backgroundColor: "#2c517c",
+          backgroundColor: "#7f1a1a",
           display: "flex",
           alignItems: "center",
           position: "sticky",
@@ -112,15 +113,6 @@ const Topbar = () => {
           >
             {t("ニューホープ成増")}
           </Typography>
-          {/* <Typography
-            fontSize="8px"
-            color="white"
-            fontWeight="bold"
-            margin="0 0 0 25px"
-            textTransform="capitalize"
-          >
-            {t("ブルテンボード")}
-          </Typography> */}
         </Box>
         <Box
           sx={{
@@ -159,7 +151,8 @@ const Topbar = () => {
       sx={{
         height: "50px",
         width: "100%",
-        backgroundColor: "#2c517c",
+        // backgroundColor: "#2c517c",
+        backgroundColor: "#7f1a1a",
         display: "flex",
         alignItems: "center",
         position: "sticky",

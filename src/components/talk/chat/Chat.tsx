@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEventHandler, useEffect, useState } from "react";
 import ChatHeader from "./ChatHeader";
 import { Box, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
@@ -21,6 +21,7 @@ import Sidebar from "../sidebar/Sidebar";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import { openGroupModal } from "../../../redux/features/groupModalSlice";
 import { type Message } from "../../../types/message";
+import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 
 const Chat = () => {
   const [inputText, setInputText] = useState<string>("");
@@ -91,9 +92,9 @@ const Chat = () => {
   }, [channelId, channelMembers]);
 
   const sendMessage = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault();
+    event.preventDefault();
     //channelsコレクションの中にあるmessageコレクションの中にメッセージ本文を入れる
     const collectionRef: CollectionReference<DocumentData> = collection(
       db,
@@ -111,6 +112,12 @@ const Chat = () => {
       read: [],
     });
     setInputText("");
+  };
+
+  const handleChange: ChangeEventHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setInputText(event.target.value);
   };
 
   if (isSp) {
@@ -270,9 +277,33 @@ const Chat = () => {
           color: "gray",
         }}
       >
-        <SendIcon fontSize="large" />
+        <IconButton
+          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+            sendMessage(event)
+          }
+        >
+          <SendIcon fontSize="large" />
+        </IconButton>
         <form style={{ flexGrow: 1 }}>
-          <input
+          <TextareaAutosize
+            placeholder={t("メッセージを送信")}
+            style={{
+              boxSizing: "border-box",
+              width: "370px",
+              fontFamily: "sans-serif",
+              fontSize: "1.0rem",
+              fontWeight: "600",
+              lineHeight: "1.3",
+              padding: "12px",
+              borderRadius: "6px 6px 0 6px",
+              marginLeft: "5px",
+              color: "black",
+            }}
+            onChange={handleChange}
+            value={inputText}
+          />
+
+          {/* <input
             type="text"
             placeholder={t("メッセージを送信")}
             style={{
@@ -288,12 +319,12 @@ const Chat = () => {
               setInputText(e.target.value)
             }
             value={inputText}
-          />
+          /> */}
           <button
             type="submit"
             style={{ display: "none" }}
-            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-              sendMessage(e)
+            onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+              sendMessage(event)
             }
           >
             送信

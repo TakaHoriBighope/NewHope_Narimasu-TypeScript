@@ -187,34 +187,31 @@ const Chat = () => {
                 color: "gray",
               }}
             >
-              <SendIcon fontSize="large" />
+              <IconButton
+                onClick={(
+                  event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                ) => sendMessage(event)}
+              >
+                <SendIcon fontSize="large" />
+              </IconButton>
               <form style={{ flexGrow: 1 }}>
-                <input
-                  inputMode="text"
+                <TextareaAutosize
                   placeholder={t("メッセージを送信")}
                   style={{
-                    padding: "0 15px",
-                    background: "transparent",
-                    border: "none",
-                    outline: "none",
+                    boxSizing: "border-box",
+                    width: "370px",
+                    fontFamily: "sans-serif",
+                    fontSize: "1.0rem",
+                    fontWeight: "600",
+                    lineHeight: "1.3",
+                    padding: "12px",
+                    borderRadius: "6px 6px 0 6px",
+                    marginLeft: "5px",
                     color: "black",
-                    fontSize: "large",
-                    // width: "100%",
                   }}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setInputText(e.target.value)
-                  }
+                  onChange={handleChange}
                   value={inputText}
                 />
-                <button
-                  type="submit"
-                  style={{ display: "none" }}
-                  onClick={(
-                    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-                  ) => sendMessage(e)}
-                >
-                  送信
-                </button>
               </form>
             </Box>
           </Box>
@@ -302,8 +299,9 @@ const Chat = () => {
             onChange={handleChange}
             value={inputText}
           />
+        </form>
 
-          {/* <input
+        {/* <input
             type="text"
             placeholder={t("メッセージを送信")}
             style={{
@@ -319,7 +317,7 @@ const Chat = () => {
               setInputText(e.target.value)
             }
             value={inputText}
-          /> */}
+          /> 
           <button
             type="submit"
             style={{ display: "none" }}
@@ -328,8 +326,7 @@ const Chat = () => {
             }
           >
             送信
-          </button>
-        </form>
+          </button>*/}
       </Box>
     </Box>
   );

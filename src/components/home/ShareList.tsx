@@ -6,79 +6,70 @@ import React, { useEffect, useState } from "react";
 import { format } from "timeago.js";
 import GTranslateIcon from "@mui/icons-material/GTranslate";
 import { auth, db } from "../../firebase";
-import {
-  doc,
-  getDoc,
-  updateDoc,
-  deleteDoc,
-  Timestamp,
-} from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { type Post } from "../../types/post";
+import { type User } from "../../types/user";
 // import { useNavigate } from "react-router-dom";
 // import { setPostingUser } from "../../redux/features/postingSlice";
 // import { useAppDispatch } from "../../redux/hooks";
 
-type postProps = {
-  id: string;
-  post: {
-    createdAt: Timestamp;
-    desc: string;
-    imgURL: string;
-    likes: string[];
-    uid: string;
-  };
+type Props = {
+  post: Post;
 };
 
-type Users = {
-  uid: string;
-  coverPicture: string;
-  createdAt: string;
-  followers: string[];
-  followings: string[];
-  profilePicture: string;
-  salesTalk: string;
-  updatedAt: string;
-  username: string;
-};
-
-const Post = (props: postProps) => {
-  const { id, post } = props;
+const ShareList = (props: Props) => {
+  const { post } = props;
+  const { id, desc, imgURL, likes, uid, createdAt } = post;
 
   // const dispatch = useAppDispatch();
-  const [like, setLike] = useState<number>(post.likes.length);
+  const [like, setLike] = useState<number>(likes.length);
   const [isLiked, setIsLiked] = useState(false);
-  const [postingUserData, setPostingUserData] = useState<Users>();
+  const [postingUserData, setPostingUserData] = useState<User>();
   const loginUser = auth.currentUser;
   // const navigate = useNavigate();
 
   useEffect(() => {
     //postしたユーザーのDataをget
-    const fetchUser = async () => {
-      const docRef = doc(db, "users", post.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
+    const docRef = doc(db, "users", uid);
+    getDoc(docRef)
+      .then((userDocRef) => {
+        const {
+          uid,
+          email,
+          coverPicture,
+          profilePicture,
+          followers,
+          followings,
+          salesTalk,
+          createdAt,
+          updatedAt,
+          username,
+        } = userDocRef.data() as User;
         setPostingUserData({
-          uid: docSnap.data().uid,
-          coverPicture: docSnap.data().coverPicture,
-          createdAt: docSnap.data().createdAt,
-          followers: docSnap.data().followers,
-          followings: docSnap.data().followings,
-          profilePicture: docSnap.data().profilePicture,
-          salesTalk: docSnap.data().salesTalk,
-          updatedAt: docSnap.data().updatedAt,
-          username: docSnap.data().username,
+          id: userDocRef.id,
+          email,
+          uid,
+          coverPicture,
+          profilePicture,
+          followers,
+          followings,
+          salesTalk,
+          createdAt,
+          updatedAt,
+          username,
         });
-      } else {
-        console.log("No such document!");
-      }
-    };
-    fetchUser();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [post.uid]);
+  }, [uid]);
 
   const handleLike = async () => {
-    const postLikeRef = doc(db, "posts", post.uid);
+    const postLikeRef = doc(db, "posts", uid);
     await updateDoc(postLikeRef, {
-      likes: post.uid,
+      likes: uid,
     });
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
@@ -144,7 +135,7 @@ const Post = (props: postProps) => {
             >
               <Typography sx={{ pl: 4, fontSize: "small", fontWeight: 550 }}>
                 {/* {format(createdAt.toDate())} */}
-                {format(new Date(post.createdAt?.toDate()).toLocaleString())}
+                {format(new Date(createdAt?.toDate()).toLocaleString())}
               </Typography>
             </Box>
             {postingUserData?.uid === loginUser?.uid ? (
@@ -159,7 +150,7 @@ const Post = (props: postProps) => {
         </Box>
       </Box>
       <Box sx={{ p: 1 }}>
-        <Typography sx={{ mb: 0.5, fontSize: "small" }}>{post.desc}</Typography>
+        <Typography sx={{ mb: 0.5, fontSize: "small" }}>{desc}</Typography>
         <Box
           sx={{
             display: "flex",
@@ -167,7 +158,7 @@ const Post = (props: postProps) => {
           }}
         >
           <img
-            src={post.imgURL}
+            src={imgURL}
             alt=""
             style={{
               marginTop: "10px",
@@ -216,4 +207,4 @@ const Post = (props: postProps) => {
   );
 };
 
-export default Post;
+export default ShareList;

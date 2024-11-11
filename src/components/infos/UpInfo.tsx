@@ -3,64 +3,61 @@ import { Box, IconButton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { format } from "timeago.js";
 import { auth, db } from "../../firebase";
-import { Timestamp, deleteDoc, doc, getDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { useAppSelector } from "../../redux/hooks";
+import { type User } from "../../types/user";
+import { type Info } from "../../types/info";
 
-interface infoProps {
-  id: string;
-  info: {
-    createdAt: Timestamp;
-    desc: string;
-    imgURL: string;
-    likes: string[];
-    uid: string;
-  };
-}
-
-type Users = {
-  uid: string;
-  coverPicture: string;
-  createdAt: string;
-  followers: string[];
-  followings: string[];
-  profilePicture: string;
-  salesTalk: string;
-  updatedAt: string;
-  username: string;
+type Props = {
+  info: Info;
 };
 
-const UpInfo = (props: infoProps) => {
-  const { id, info } = props;
+const UpInfo = (props: Props) => {
+  const { info } = props;
+  const { id, desc, imgURL, uid, createdAt } = info;
 
   const displayName = useAppSelector((state) => state.displayName);
-  const [infoUserData, setInfoUserData] = useState<Users>();
+  const [infoUserData, setInfoUserData] = useState<User>();
   console.log(displayName);
   const loginUser = auth.currentUser;
 
   useEffect(() => {
-    //ingoしたユーザーDataをget
-    const fetchUser = async () => {
-      const docRef = doc(db, "users", info.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
+    //infoしたユーザーDataをget
+    const docRef = doc(db, "users", uid);
+    getDoc(docRef)
+      .then((userDocRef) => {
+        const {
+          uid,
+          email,
+          coverPicture,
+          profilePicture,
+          followers,
+          followings,
+          salesTalk,
+          createdAt,
+          updatedAt,
+          username,
+        } = userDocRef.data() as User;
         setInfoUserData({
-          uid: docSnap.data().uid,
-          coverPicture: docSnap.data().coverPicture,
-          createdAt: docSnap.data().createdAt,
-          followers: docSnap.data().followers,
-          followings: docSnap.data().followings,
-          profilePicture: docSnap.data().profilePicture,
-          salesTalk: docSnap.data().salesTalk,
-          updatedAt: docSnap.data().updatedAt,
-          username: docSnap.data().username,
+          id: userDocRef.id,
+          email,
+          uid,
+          coverPicture,
+          profilePicture,
+          followers,
+          followings,
+          salesTalk,
+          createdAt,
+          updatedAt,
+          username,
         });
-      } else {
-        console.log("No such document!");
-      }
-    };
-    fetchUser();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [info.uid]);
+  }, []);
 
   const deleteInfo = async () => {
     await deleteDoc(doc(db, "infos", id));
@@ -90,7 +87,7 @@ const UpInfo = (props: infoProps) => {
             {/* {displayName} */}
           </Typography>
           <Typography sx={{ pl: 5, fontSize: "small" }}>
-            {format(new Date(info.createdAt?.toDate()).toLocaleString())}
+            {format(new Date(createdAt?.toDate()).toLocaleString())}
           </Typography>
         </Box>
         {infoUserData?.uid === loginUser?.uid ? (
@@ -103,9 +100,7 @@ const UpInfo = (props: infoProps) => {
         )}
       </Box>
       <Box sx={{ p: 1 }}>
-        <Typography sx={{ mb: 0.5, fontSize: "0.8rem" }}>
-          {info.desc}
-        </Typography>
+        <Typography sx={{ mb: 0.5, fontSize: "0.8rem" }}>{desc}</Typography>
         <Box
           sx={{
             display: "flex",
@@ -113,7 +108,7 @@ const UpInfo = (props: infoProps) => {
           }}
         >
           <img
-            src={info.imgURL}
+            src={imgURL}
             alt=""
             style={{
               width: "100%",

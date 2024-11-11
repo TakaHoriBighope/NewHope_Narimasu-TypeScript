@@ -1,6 +1,6 @@
 import React from "react";
 import Topbar from "../components/home/Topbar";
-import TimeLine from "../components/home/TimeLine";
+import ShareTimeLine from "../components/home/ShareTimeLine";
 import { Box } from "@mui/material";
 import { mediaQuery, useMediaQuery } from "../utiles/useMediaQuery";
 
@@ -18,7 +18,7 @@ const Share = () => {
             backgroundColor: "#f8fcff",
           }}
         >
-          <TimeLine mode="home" />
+          <ShareTimeLine />
         </Box>
       </>
     );

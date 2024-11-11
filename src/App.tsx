@@ -9,7 +9,7 @@ import Information from "./pages/Information";
 import MSettings from "./pages/MSettings";
 import PSettings from "./pages/PSettings";
 import NotMatch from "./pages/NotMatch";
-import TimeLine from "./components/home/TimeLine";
+import ShareTimeLine from "./components/home/ShareTimeLine";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
@@ -71,7 +71,7 @@ export const App = () => {
             <Route path="/" element={<AppLayout />}>
               <Route index element={<Home />} />
               <Route path="share" element={<Share />} />
-              <Route path="timeline" element={<TimeLine mode="home" />} />
+              <Route path="timeline" element={<ShareTimeLine />} />
               <Route path="information" element={<Information mode="main" />} />
               <Route path="msettings" element={<MSettings />} />
               <Route path="psettings" element={<PSettings />} />

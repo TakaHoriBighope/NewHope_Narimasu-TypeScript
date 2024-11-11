@@ -6,7 +6,6 @@ import { openModal } from "../../redux/features/modalSlice";
 import {
   DocumentData,
   Query,
-  Timestamp,
   collection,
   onSnapshot,
   orderBy,
@@ -16,15 +15,7 @@ import { db } from "../../firebase";
 import ModalShare from "../modal/ModalShare";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
-
-interface Infos {
-  createdAt: Timestamp;
-  desc: string;
-  imgURL: string;
-  likes: string[];
-  uid: string;
-  id: string;
-}
+import { type Info } from "../../types/info";
 
 type Props = {
   mode: string;
@@ -34,36 +25,44 @@ const InfoTimeLine = (props: Props) => {
   const { mode } = props;
 
   const dispatch = useAppDispatch();
-  const [infos, setInfos] = useState<Infos[]>([]);
+  const [infos, setInfos] = useState<Info[]>([]);
   // const [activeIndex, setActiveIndex] = useState(0);
   const { isOpen } = useAppSelector((state) => state.modal);
   console.log(isOpen);
   const isSp = useMediaQuery(mediaQuery.sp);
 
+  // リアルタイムでinfoデータを取得する
   const collectionRef: Query<DocumentData> = query(
     collection(db, "infos"),
     orderBy("createdAt", "desc")
   );
-
   useEffect(() => {
-    const getAllInfos = async () => {
-      // リアルタイムでデータを取得する
-      onSnapshot(collectionRef, (querySnapshot) => {
-        const infosResults: Infos[] = [];
+    const unsubscribe = onSnapshot(
+      collectionRef,
+      (querySnapshot) => {
+        const infosResults: Info[] = [];
         querySnapshot.forEach((doc) => {
+          const { desc, imgURL, likes, uid, createdAt, read } =
+            doc.data() as Info;
           infosResults.push({
-            uid: doc.data().uid,
-            createdAt: doc.data().createdAt,
-            desc: doc.data().desc,
-            likes: doc.data().likes,
-            imgURL: doc.data().imgURL,
             id: doc.id,
+            desc,
+            imgURL,
+            likes,
+            uid,
+            createdAt,
+            read,
           });
         });
         setInfos(infosResults);
-      });
+      },
+      (error) => {
+        // console.log("onSnapshot at Share", error);
+      }
+    );
+    return () => {
+      unsubscribe(); // ← 追加
     };
-    getAllInfos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -87,7 +86,7 @@ const InfoTimeLine = (props: Props) => {
           {isOpen && <ModalShare mode="infos" />}
           {infos.map((info) => (
             <ListItemButton>
-              <UpInfo info={info} key={info.uid} id={info.id} />
+              <UpInfo info={info} key={info.uid} />
             </ListItemButton>
           ))}
         </Box>
@@ -109,7 +108,7 @@ const InfoTimeLine = (props: Props) => {
         {isOpen && <ModalShare mode="infos" />}
         {infos.map((info) => (
           <ListItemButton>
-            <UpInfo info={info} key={info.uid} id={info.id} />
+            <UpInfo info={info} key={info.uid} />
           </ListItemButton>
         ))}
       </Box>

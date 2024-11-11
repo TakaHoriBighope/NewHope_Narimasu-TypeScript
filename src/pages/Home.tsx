@@ -1,7 +1,7 @@
 import React from "react";
 import Topbar from "../components/home/Topbar";
 import Sidebar from "../components/sidebar/Sidebar";
-import TimeLine from "../components/home/TimeLine";
+import ShareTimeLine from "../components/home/ShareTimeLine";
 import Rightbar from "../components/home/Rightbar";
 import { Box } from "@mui/material";
 import { mediaQuery, useMediaQuery } from "../utiles/useMediaQuery";
@@ -31,7 +31,7 @@ const Home = () => {
       <Topbar />
       <Box sx={{ display: "flex", width: "100%", backgroundColor: "#f8fcff" }}>
         <Sidebar />
-        <TimeLine mode="home" />
+        <ShareTimeLine />
         <Rightbar />
       </Box>
     </>

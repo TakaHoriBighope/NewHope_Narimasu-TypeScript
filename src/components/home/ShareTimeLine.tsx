@@ -1,6 +1,6 @@
 import { Box, Fab, ListItemButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import Post from "./Post";
+import ShareList from "./ShareList";
 import { openModal } from "../../redux/features/modalSlice";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalShare from "../modal/ModalShare";
@@ -10,7 +10,6 @@ import { db } from "../../firebase";
 import {
   DocumentData,
   Query,
-  Timestamp,
   collection,
   onSnapshot,
   query,
@@ -19,19 +18,7 @@ import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
 import PeopleIcon from "@mui/icons-material/People";
 import { openSelectPosterModal } from "../../redux/features/selectPosterModalSlice";
 import SelectPoster from "../sidebar/SelectPoster";
-
-interface Posts {
-  createdAt: Timestamp;
-  desc: string;
-  imgURL: string;
-  likes: string[];
-  uid: string;
-  id: string;
-}
-
-type Props = {
-  mode: string;
-};
+import { type Post } from "../../types/post";
 
 type Users = {
   uid: string;
@@ -45,8 +32,7 @@ type Users = {
   username: string;
 };
 
-const TimeLine = (props: Props) => {
-  const { mode } = props;
+const ShareTimeLine = () => {
   const dispatch = useAppDispatch();
   const isSelectPosterOpen = useAppSelector((state) => state.selectPosterModal);
   console.log(isSelectPosterOpen);
@@ -88,26 +74,39 @@ const TimeLine = (props: Props) => {
   }, [loginUser]);
 
   // リアルタイムでpostsデータを取得する
-  const [posts, setPosts] = useState<Posts[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const collectionRef: Query<DocumentData> = query(
     collection(db, "posts"),
     orderBy("createdAt", "desc")
   );
   useEffect(() => {
-    onSnapshot(collectionRef, (querySnapshot) => {
-      const postsResults: Posts[] = [];
-      querySnapshot.forEach((doc) => {
-        postsResults.push({
-          uid: doc.data().uid,
-          createdAt: doc.data().createdAt,
-          desc: doc.data().desc,
-          likes: doc.data().likes,
-          imgURL: doc.data().imgURL,
-          id: doc.id,
+    const unsubscribe = onSnapshot(
+      collectionRef,
+      (querySnapshot) => {
+        const postsResults: Post[] = [];
+        querySnapshot.forEach((doc) => {
+          const { desc, imgURL, uid, likes, createdAt, username, read } =
+            doc.data() as Post;
+          postsResults.push({
+            id: doc.id,
+            desc,
+            imgURL,
+            uid,
+            likes,
+            createdAt,
+            username,
+            read,
+          });
         });
-      });
-      setPosts(postsResults);
-    });
+        setPosts(postsResults);
+      },
+      (error) => {
+        // console.log("onSnapshot at Share", error);
+      }
+    );
+    return () => {
+      unsubscribe(); // ← 追加
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -141,17 +140,9 @@ const TimeLine = (props: Props) => {
           {isSelectPosterOpen.isSelectPosterOpen ? <SelectPoster /> : null}
           {isOpen.isOpen ? <ModalShare mode="posts" /> : null}
           {posts.map((post) =>
-            mode === "profile" ? ( //profileで表示する
-              loginUser?.uid === post.uid ? ( //profileで表示する
-                <ListItemButton>
-                  <Post key={post.uid} post={post} id={post.id} />
-                </ListItemButton>
-              ) : (
-                ""
-              )
-            ) : loginUserData?.followings?.includes(post.uid) ? ( //homeで表示する
+            loginUserData?.followings?.includes(post.uid) ? ( //homeで表示する
               <ListItemButton>
-                <Post key={post.uid} post={post} id={post.id} />
+                <ShareList key={post.uid} post={post} />
               </ListItemButton>
             ) : (
               ""
@@ -175,17 +166,18 @@ const TimeLine = (props: Props) => {
         </Fab>
         {isOpen.isOpen ? <ModalShare mode="posts" /> : null}
         {posts.map((post) =>
-          mode === "profile" ? ( //profileで表示する
-            loginUser?.uid === post.uid ? ( //profileで表示する
-              <ListItemButton>
-                <Post key={post.uid} post={post} id={post.id} />
-              </ListItemButton>
-            ) : (
-              ""
-            )
-          ) : loginUserData?.followings?.includes(post.uid) ? ( //homeで表示する
+          // mode === "profile" ? ( //profileで表示する
+          //   loginUser?.uid === post.uid ? ( //profileで表示する
+          //     <ListItemButton>
+          //       <Share key={post.uid} post={post} id={post.id} />
+          //     </ListItemButton>
+          //   ) : (
+          //     ""
+          //   )
+          // ) :
+          loginUserData?.followings?.includes(post.uid) ? ( //homeで表示する
             <ListItemButton>
-              <Post key={post.uid} post={post} id={post.id} />
+              <ShareList key={post.uid} post={post} />
             </ListItemButton>
           ) : (
             ""
@@ -196,4 +188,4 @@ const TimeLine = (props: Props) => {
   );
 };
 
-export default TimeLine;
+export default ShareTimeLine;

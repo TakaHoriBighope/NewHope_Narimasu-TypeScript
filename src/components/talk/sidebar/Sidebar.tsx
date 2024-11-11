@@ -247,33 +247,33 @@ const Sidebar = () => {
             >
               <IconButton>
                 <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-                  <Avatar
-                    src={loginUser?.profilePicture}
-                    sx={{ marginLeft: "5px" }}
-                  />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column*",
+                      alignItems: "center",
+                      paddingBottom: "10px",
+                      justifyContent: "center",
+                      paddingTop: "10px",
+                    }}
+                  >
+                    <Avatar
+                      src={loginUser?.profilePicture}
+                      sx={{ marginLeft: "5px" }}
+                    />
+                    <Typography
+                      sx={{
+                        color: "#686a6e",
+                        fontWeight: "900",
+                        marginLeft: "5px",
+                        fontSize: "18px",
+                      }}
+                    >
+                      {t("ホームへ")}
+                    </Typography>
+                  </Box>
                 </Link>
               </IconButton>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  paddingBottom: "10px",
-                  justifyContent: "center",
-                  paddingTop: "10px",
-                }}
-              >
-                <Typography
-                  sx={{
-                    color: "#686a6e",
-                    fontWeight: "900",
-                    marginLeft: "5px",
-                    fontSize: "18px",
-                  }}
-                >
-                  {t("ホームへ")}
-                </Typography>
-              </Box>
             </Box>
           </Box>
         </Box>

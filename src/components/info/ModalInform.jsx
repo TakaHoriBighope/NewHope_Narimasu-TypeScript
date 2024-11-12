@@ -39,8 +39,8 @@ const ModalInform = () => {
   const storage = getStorage();
   const user = auth.currentUser;
   const lang = useSelector((state) => state.lang.value);
-  const [loading, setLoading] = useState(false);
-  const [isUploaded, setIsUpLoaded] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  // const [isUploaded, setIsUpLoaded] = useState(false);
   const [file, setFile] = useState(null);
 
   const [t, i18n] = useTranslation();
@@ -61,14 +61,14 @@ const ModalInform = () => {
       uploadImage.on(
         "state_changed",
         (snapshot) => {
-          setLoading(true);
+          // setLoading(true);
         },
         (err) => {
           console.log(err);
         },
         () => {
-          setLoading(false);
-          setIsUpLoaded(true);
+          // setLoading(false);
+          // setIsUpLoaded(true);
           // Upload completed successfully, now we can get the download URL
           getDownloadURL(uploadImage.snapshot.ref).then((downloadURL) => {
             addDoc(collection(db, "infos"), {

@@ -1,6 +1,6 @@
 import React from "react";
 import Topbar from "../components/home/Topbar";
-import ShareTimeLine from "../components/home/ShareTimeLine";
+import ShareTimeLine from "../components/share/ShareTimeLine";
 import { Box } from "@mui/material";
 import { mediaQuery, useMediaQuery } from "../utiles/useMediaQuery";
 

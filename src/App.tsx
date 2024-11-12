@@ -9,7 +9,7 @@ import Information from "./pages/Information";
 import MSettings from "./pages/MSettings";
 import PSettings from "./pages/PSettings";
 import NotMatch from "./pages/NotMatch";
-import ShareTimeLine from "./components/home/ShareTimeLine";
+import ShareTimeLine from "./components/share/ShareTimeLine";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";

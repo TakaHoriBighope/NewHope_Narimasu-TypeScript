@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ShareList from "./ShareList";
 import { openModal } from "../../redux/features/modalSlice";
 import EditIcon from "@mui/icons-material/Edit";
-import ModalShare from "../modal/ModalShare";
+import ModalShare from "../share/ModalShare";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { doc, getDoc, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -166,15 +166,6 @@ const ShareTimeLine = () => {
         </Fab>
         {isOpen.isOpen ? <ModalShare mode="posts" /> : null}
         {posts.map((post) =>
-          // mode === "profile" ? ( //profileで表示する
-          //   loginUser?.uid === post.uid ? ( //profileで表示する
-          //     <ListItemButton>
-          //       <Share key={post.uid} post={post} id={post.id} />
-          //     </ListItemButton>
-          //   ) : (
-          //     ""
-          //   )
-          // ) :
           loginUserData?.followings?.includes(post.uid) ? ( //homeで表示する
             <ListItemButton>
               <ShareList key={post.uid} post={post} />

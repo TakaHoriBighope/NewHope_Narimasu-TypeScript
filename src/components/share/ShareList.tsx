@@ -75,8 +75,14 @@ const ShareList = (props: Props) => {
     setIsLiked(!isLiked);
   };
 
-  const deletePost = async () => {
-    await deleteDoc(doc(db, "posts", id));
+  const deletePost = async (id: string) => {
+    if (auth.currentUser === null) {
+      return;
+    }
+    const ref = doc(db, "posts", id);
+    deleteDoc(ref).catch(() => {
+      console.log("faild");
+    });
   };
 
   return (
@@ -140,7 +146,7 @@ const ShareList = (props: Props) => {
             </Box>
             {postingUserData?.uid === loginUser?.uid ? (
               //他人の投稿は削除できない
-              <IconButton sx={{ color: "red" }} onClick={() => deletePost()}>
+              <IconButton sx={{ color: "red" }} onClick={() => deletePost(id)}>
                 <DeleteOutlinedIcon />
               </IconButton>
             ) : (

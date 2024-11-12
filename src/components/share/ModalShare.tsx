@@ -30,8 +30,8 @@ const ModalShare = (props: Props) => {
   const user = useAppSelector((state) => state.user.user);
   // const postLists = useAppSelector((state) => state.post);
 
-  const [loading, setLoading] = useState(false);
-  const [isUploaded, setIsUpLoaded] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  // const [upLoading, setIsUpLoaded] = useState(false);
 
   const [file, setFile] = useState<File | null>(null);
   const [inputText, setInputText] = useState<string>("");
@@ -75,14 +75,14 @@ const ModalShare = (props: Props) => {
       uploadImage.on(
         "state_changed",
         (snapshot) => {
-          setLoading(true);
+          // setLoading(true);
         },
         (err) => {
           console.log(err);
         },
         () => {
-          setLoading(false);
-          setIsUpLoaded(true);
+          // setLoading(false);
+          // setIsUpLoaded(true);
           // Upload completed successfully, now we can get the download URL
           getDownloadURL(uploadImage.snapshot.ref).then((downloadURL) => {
             console.log("File available at", downloadURL);

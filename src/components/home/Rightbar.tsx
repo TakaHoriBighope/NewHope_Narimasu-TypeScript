@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ShowInfos from "../infos/ShowInfos";
+import ShowInfos from "../info/ShowInfos";
 import { Box, IconButton, Typography } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useTranslation } from "react-i18next";

@@ -1,11 +1,11 @@
 import React from "react";
 import Topbar from "../components/home/Topbar";
 import Sidebar from "../components/sidebar/Sidebar";
-import ShareTimeLine from "../components/home/ShareTimeLine";
+import ShareTimeLine from "../components/share/ShareTimeLine";
 import Rightbar from "../components/home/Rightbar";
 import { Box } from "@mui/material";
 import { mediaQuery, useMediaQuery } from "../utiles/useMediaQuery";
-import InfoTimeLine from "../components/infos/InfoTimeLine";
+import InfoTimeLine from "../components/info/InfoTimeLine";
 
 const Home = () => {
   const isSp = useMediaQuery(mediaQuery.sp);

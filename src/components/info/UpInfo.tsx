@@ -59,8 +59,14 @@ const UpInfo = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const deleteInfo = async () => {
-    await deleteDoc(doc(db, "infos", id));
+  const deleteInfo = (id: string) => {
+    if (auth.currentUser === null) {
+      return;
+    }
+    const ref = doc(db, "infos", id);
+    deleteDoc(ref).catch(() => {
+      console.log("faild");
+    });
   };
 
   return (
@@ -92,7 +98,7 @@ const UpInfo = (props: Props) => {
         </Box>
         {infoUserData?.uid === loginUser?.uid ? (
           //他人の投稿は削除できない
-          <IconButton sx={{ color: "red" }} onClick={() => deleteInfo()}>
+          <IconButton sx={{ color: "red" }} onClick={() => deleteInfo(id)}>
             <DeleteOutlinedIcon />
           </IconButton>
         ) : (

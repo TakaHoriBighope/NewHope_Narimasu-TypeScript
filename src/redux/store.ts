@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../redux/features/userSlice";
 import modalReducer from "../redux/features/modalSlice";
+import editModalReducer from "../redux/features/editModalSlice";
 import groupModalReducer from "../redux/features/groupModalSlice";
 import selectPosterModalReducer from "../redux/features/selectPosterModalSlice";
 import langReducer from "../redux/features/langSlice";
@@ -15,6 +16,7 @@ export const store = configureStore({
   reducer: {
     user: userReducer,
     modal: modalReducer,
+    editModal: editModalReducer,
     groupModal: groupModalReducer,
     selectPosterModal: selectPosterModalReducer,
     lang: langReducer,

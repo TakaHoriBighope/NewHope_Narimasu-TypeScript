@@ -23,7 +23,7 @@ type Props = {
   mode: string;
 };
 
-const ModalShare = (props: Props) => {
+const CreateShare = (props: Props) => {
   const { mode } = props;
 
   const dispatch = useAppDispatch();
@@ -260,4 +260,4 @@ const ModalShare = (props: Props) => {
   );
 };
 
-export default ModalShare;
+export default CreateShare;

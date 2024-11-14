@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ShareList from "./ShareList";
 import { openModal } from "../../redux/features/modalSlice";
 import EditIcon from "@mui/icons-material/Edit";
-import ModalShare from "../share/ModalShare";
+import CreateShare from "../share/CreateShare";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { doc, getDoc, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -19,18 +19,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import { openSelectPosterModal } from "../../redux/features/selectPosterModalSlice";
 import SelectPoster from "../sidebar/SelectPoster";
 import { type Post } from "../../types/post";
-
-type Users = {
-  uid: string;
-  coverPicture: string;
-  createdAt: string;
-  followers: string[];
-  followings: string[];
-  profilePicture: string;
-  salesTalk: string;
-  updatedAt: string;
-  username: string;
-};
+import { type User } from "../../types/user";
 
 const ShareTimeLine = () => {
   const dispatch = useAppDispatch();
@@ -44,32 +33,44 @@ const ShareTimeLine = () => {
   const loginUser = useAppSelector((state) => state.user.user);
 
   //ログインしているユーザーデーターを取ってくる（followingsの状態が必要）
-  const [loginUserData, setLoginUserData] = useState<Users>();
+  const [loginUserData, setLoginUserData] = useState<User>();
   useEffect(() => {
-    const fetchUser = async () => {
-      const uid = loginUser?.uid;
-      console.log(uid);
-      if (uid) {
-        const docRef = doc(db, "users", uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
+    //postしたユーザーのDataをget
+    const uid = loginUser?.uid;
+    if (uid) {
+      const docRef = doc(db, "users", uid);
+      getDoc(docRef)
+        .then((userDocRef) => {
+          const {
+            uid,
+            email,
+            coverPicture,
+            profilePicture,
+            followers,
+            followings,
+            salesTalk,
+            createdAt,
+            updatedAt,
+            username,
+          } = userDocRef.data() as User;
           setLoginUserData({
-            uid: docSnap.data().uid,
-            coverPicture: docSnap.data().coverPicture,
-            createdAt: docSnap.data().createdAt,
-            followers: docSnap.data().followers,
-            followings: docSnap.data().followings,
-            profilePicture: docSnap.data().profilePicture,
-            salesTalk: docSnap.data().salesTalk,
-            updatedAt: docSnap.data().updatedAt,
-            username: docSnap.data().username,
+            id: userDocRef.id,
+            email,
+            uid,
+            coverPicture,
+            profilePicture,
+            followers,
+            followings,
+            salesTalk,
+            createdAt,
+            updatedAt,
+            username,
           });
-        } else {
-          console.log("No such document!33");
-        }
-      }
-    };
-    fetchUser();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser]);
 
@@ -138,7 +139,7 @@ const ShareTimeLine = () => {
             <EditIcon />
           </Fab>
           {isSelectPosterOpen.isSelectPosterOpen ? <SelectPoster /> : null}
-          {isOpen.isOpen ? <ModalShare mode="posts" /> : null}
+          {isOpen.isOpen ? <CreateShare mode="posts" /> : null}
           {posts.map((post) =>
             loginUserData?.followings?.includes(post.uid) ? ( //homeで表示する
               <ListItemButton>
@@ -164,7 +165,7 @@ const ShareTimeLine = () => {
         >
           <EditIcon />
         </Fab>
-        {isOpen.isOpen ? <ModalShare mode="posts" /> : null}
+        {isOpen.isOpen ? <CreateShare mode="posts" /> : null}
         {posts.map((post) =>
           loginUserData?.followings?.includes(post.uid) ? ( //homeで表示する
             <ListItemButton>

@@ -9,6 +9,12 @@ import { auth, db } from "../../firebase";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { type Post } from "../../types/post";
 import { type User } from "../../types/user";
+import EditIcon from "@mui/icons-material/Edit";
+// import ModalShare from "../share/ModalShare";
+import EditShare from "../share/EditShare";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { openEditModal } from "../../redux/features/editModalSlice";
+
 // import { useNavigate } from "react-router-dom";
 // import { setPostingUser } from "../../redux/features/postingSlice";
 // import { useAppDispatch } from "../../redux/hooks";
@@ -26,6 +32,10 @@ const ShareList = (props: Props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [postingUserData, setPostingUserData] = useState<User>();
   const loginUser = auth.currentUser;
+  const dispatch = useAppDispatch();
+  const isSelectPosterOpen = useAppSelector((state) => state.selectPosterModal);
+  console.log(isSelectPosterOpen);
+  const isEditOpen = useAppSelector((state) => state.editModal);
   // const navigate = useNavigate();
 
   useEffect(() => {
@@ -143,6 +153,22 @@ const ShareList = (props: Props) => {
                 {/* {format(createdAt.toDate())} */}
                 {format(new Date(createdAt?.toDate()).toLocaleString())}
               </Typography>
+            </Box>
+            <Box>
+              {postingUserData?.uid === loginUser?.uid ? (
+                //他人の投稿は編集できない
+                <IconButton
+                  sx={{ color: "blue" }}
+                  onClick={() => {
+                    dispatch(openEditModal());
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+              ) : (
+                ""
+              )}
+              {isEditOpen.isEditOpen ? EditShare(id) : null}
             </Box>
             {postingUserData?.uid === loginUser?.uid ? (
               //他人の投稿は削除できない

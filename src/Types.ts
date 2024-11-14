@@ -15,6 +15,11 @@ export interface InitialChannelState {
 export interface IModalState {
   isOpen: boolean;
 }
+
+export interface IEditModalState {
+  isEditOpen: boolean;
+}
+
 export interface IGroupModalState {
   isGroupOpen: boolean;
 }

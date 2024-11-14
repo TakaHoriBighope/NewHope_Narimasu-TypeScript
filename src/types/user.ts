@@ -17,8 +17,8 @@ export type User = {
   email: string;
   coverPicture: string;
   profilePicture: string;
-  followers: [];
-  followings: [];
+  followers: String[];
+  followings: String[];
   createdAt: Timestamp;
   updatedAt: Timestamp;
   salesTalk: string;

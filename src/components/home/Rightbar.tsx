@@ -28,34 +28,59 @@ const Rightbar = () => {
   // const isSp = useMediaQuery(mediaQuery.sp);
   // const loginUser = useAppSelector((state) => state.user.user);
 
-  const HomeRightbar = () => {
-    const [infos, setInfos] = useState<Infos[]>([]);
+  // const HomeRightbar = () => {
+  const [infos, setInfos] = useState<Infos[]>([]);
 
-    const [t] = useTranslation();
+  const [t] = useTranslation();
 
-    useEffect(() => {
-      const collectionRef: Query<DocumentData> = query(
-        collection(db, "infos"),
-        orderBy("createdAt", "desc")
-      );
-      // リアルタイムでデータを取得する
-      onSnapshot(collectionRef, (querySnapshot) => {
-        const infosResults: Infos[] = [];
-        querySnapshot.forEach((doc) => {
-          infosResults.push({
-            uid: doc.data().uid,
-            createdAt: doc.data().createdAt,
-            desc: doc.data().desc,
-            likes: doc.data().likes,
-            imgURL: doc.data().imgURL,
-          });
+  useEffect(() => {
+    const collectionRef: Query<DocumentData> = query(
+      collection(db, "infos"),
+      orderBy("createdAt", "desc")
+    );
+    // リアルタイムでデータを取得する
+    onSnapshot(collectionRef, (querySnapshot) => {
+      const infosResults: Infos[] = [];
+      querySnapshot.forEach((doc) => {
+        infosResults.push({
+          uid: doc.data().uid,
+          createdAt: doc.data().createdAt,
+          desc: doc.data().desc,
+          likes: doc.data().likes,
+          imgURL: doc.data().imgURL,
         });
-        setInfos(infosResults);
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+      setInfos(infosResults);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    return (
+  // return (
+  //   <Box sx={{ flex: 4, maxWidth: 500 }}>
+  //     <Box sx={{ display: "flex", alignItems: "center" }}>
+  //       <IconButton>
+  //         <StarIcon sx={{ fontSize: "25px", color: "blueviolet" }} />
+  //       </IconButton>
+  //       <Typography sx={{ fontWeight: "700", fontSize: "20px" }}>
+  //         {t("NH成増からのお知らせ")}
+  //       </Typography>
+  //     </Box>
+  //     {infos.map((info) => (
+  //       <ShowInfos info={info} key={info.uid} />
+  //     ))}
+  //   </Box>
+  // );
+  // };
+
+  return (
+    <Box
+      sx={{
+        p: 2,
+        flex: 4,
+        maxWidth: 680,
+      }}
+    >
+      {/* <HomeRightbar /> */}
       <Box sx={{ flex: 4, maxWidth: 500 }}>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <IconButton>
@@ -69,18 +94,6 @@ const Rightbar = () => {
           <ShowInfos info={info} key={info.uid} />
         ))}
       </Box>
-    );
-  };
-
-  return (
-    <Box
-      sx={{
-        p: 2,
-        flex: 4,
-        maxWidth: 680,
-      }}
-    >
-      <HomeRightbar />
     </Box>
   );
 };

@@ -13,7 +13,7 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useAppSelector } from "../../redux/hooks";
+// import { useAppSelector } from "../../redux/hooks";
 // import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
 
 interface Infos {
@@ -26,7 +26,7 @@ interface Infos {
 
 const Rightbar = () => {
   // const isSp = useMediaQuery(mediaQuery.sp);
-  const loginUser = useAppSelector((state) => state.user.user);
+  // const loginUser = useAppSelector((state) => state.user.user);
 
   const HomeRightbar = () => {
     const [infos, setInfos] = useState<Infos[]>([]);
@@ -72,31 +72,6 @@ const Rightbar = () => {
     );
   };
 
-  const ProfileRightbar = () => {
-    const [t] = useTranslation();
-
-    return (
-      <>
-        <Box>
-          <Typography
-            sx={{
-              fontSize: "18px",
-              fontWeight: "550",
-              marginBottom: "10px",
-              marginTop: "10px",
-            }}
-          >
-            {t("ユーザー情報")}
-          </Typography>
-          <Box sx={{ display: "flex", fontWeight: "500", color: "#555" }}>
-            <Typography>出身：</Typography>
-            <Typography>静岡県浜松</Typography>
-          </Box>
-        </Box>
-      </>
-    );
-  };
-
   return (
     <Box
       sx={{
@@ -105,7 +80,7 @@ const Rightbar = () => {
         maxWidth: 680,
       }}
     >
-      {loginUser ? <HomeRightbar /> : <ProfileRightbar />}
+      <HomeRightbar />
     </Box>
   );
 };

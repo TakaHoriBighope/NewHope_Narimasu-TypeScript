@@ -33,8 +33,6 @@ const ShareList = (props: Props) => {
   const [postingUserData, setPostingUserData] = useState<User>();
   const loginUser = auth.currentUser;
   const dispatch = useAppDispatch();
-  const isSelectPosterOpen = useAppSelector((state) => state.selectPosterModal);
-  console.log(isSelectPosterOpen);
   const isEditOpen = useAppSelector((state) => state.editModal);
   // const navigate = useNavigate();
 

@@ -160,7 +160,7 @@ const Topbar = () => {
         zIndex: 50,
       }}
     >
-      <Box sx={{ flex: 4, display: "flex", alignItems: "baseline" }}>
+      <Box>
         <Typography
           fontSize="26px"
           color="white"
@@ -170,15 +170,6 @@ const Topbar = () => {
         >
           {t("ニューホープ成増")}
         </Typography>
-        {/* <Typography
-          fontSize="18px"
-          color="white"
-          fontWeight="bold"
-          margin="0 0 0 25px"
-          textTransform="capitalize"
-        >
-          {t("ブルテンボード")}
-        </Typography> */}
       </Box>
       <Box
         sx={{

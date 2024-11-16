@@ -12,18 +12,6 @@ import {
   query,
 } from "firebase/firestore";
 
-// type Users = {
-//   uid: string;
-//   coverPicture: string;
-//   createdAt: string;
-//   followers: [];
-//   followings: [];
-//   profilePicture: string;
-//   salesTalk: string;
-//   updatedAt: string;
-//   username: string;
-// };
-
 const DisplayAllUsers = () => {
   const [users, setUsers] = useState<User[]>([]);
   const collectionRef: Query<DocumentData> = query(

@@ -15,19 +15,6 @@ import { useTranslation } from "react-i18next";
 import { closeSelectPosterModal } from "../../redux/features/selectPosterModalSlice";
 import { type User } from "../../types/user";
 
-// type userProps = {
-//   user: {
-//     uid: string;
-//     coverPicture: string;
-//     createdAt: string;
-//     followers: [];
-//     followings: [];
-//     profilePicture: string;
-//     salesTalk: string;
-//     updatedAt: string;
-//     username: string;
-//   };
-// };
 type Props = {
   user: User;
 };

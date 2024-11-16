@@ -17,18 +17,6 @@ import { closeSelectPosterModal } from "../../redux/features/selectPosterModalSl
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { type User } from "../../types/user";
 
-// type Users = {
-//   uid: string;
-//   coverPicture: string;
-//   createdAt: string;
-//   followers: [];
-//   followings: [];
-//   profilePicture: string;
-//   salesTalk: string;
-//   updatedAt: string;
-//   username: string;
-// };
-
 const SelectPoster = () => {
   const lang = useAppSelector((state) => state.lang);
   const [t, i18n] = useTranslation();

@@ -20,24 +20,13 @@ import { doc, getDoc } from "firebase/firestore";
 import { useAppSelector } from "../../redux/hooks";
 import ChatIcon from "@mui/icons-material/Chat";
 import StarIcon from "@mui/icons-material/Star";
-
-type Users = {
-  uid: string;
-  coverPicture: string;
-  createdAt: string;
-  followers: [];
-  followings: [];
-  profilePicture: string;
-  salesTalk: string;
-  updatedAt: string;
-  username: string;
-};
+import { type User } from "../../types/user";
 
 const Sidebar = () => {
   // const UID1 = process.env.REACT_APP_UID1;
   const UID2 = process.env.REACT_APP_UID2;
 
-  const [currentUserData, setCurrentUserData] = useState<Users>();
+  const [currentUserData, setCurrentUserData] = useState<User>();
 
   const lang = useAppSelector((state) => state.lang);
   const [t, i18n] = useTranslation();
@@ -59,13 +48,14 @@ const Sidebar = () => {
             setCurrentUserData({
               uid: docSnap.data().uid,
               coverPicture: docSnap.data().coverPicture,
+              profilePicture: docSnap.data().profilePicture,
               createdAt: docSnap.data().createdAt,
+              updatedAt: docSnap.data().updatedAt,
               followers: docSnap.data().followers,
               followings: docSnap.data().followings,
-              profilePicture: docSnap.data().profilePicture,
               salesTalk: docSnap.data().salesTalk,
-              updatedAt: docSnap.data().updatedAt,
               username: docSnap.data().username,
+              email: docSnap.data().email,
             });
           } else {
             console.log("No such document!11");

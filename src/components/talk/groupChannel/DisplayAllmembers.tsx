@@ -13,18 +13,7 @@ import DisplayMembers from "./DisplayMember";
 import { closeModal } from "../../../redux/features/modalSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import CloseIcon from "@mui/icons-material/Close";
-
-type Users = {
-  uid: string;
-  coverPicture: string;
-  createdAt: string;
-  followers: [];
-  followings: [];
-  profilePicture: string;
-  salesTalk: string;
-  updatedAt: string;
-  username: string;
-};
+import { type User } from "../../../types/user";
 
 type Props = {
   channelName: string | null;
@@ -39,7 +28,7 @@ const DisplayAllmembers = (props: Props) => {
   const channelMember = useAppSelector((state) => state.channel.channelMember);
   const reduxChannelName = useAppSelector((state) => state.channel.channelName);
 
-  const [users, setUsers] = useState<Users[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const collectionRef: Query<DocumentData> = query(
     collection(db, "users"),
     orderBy("createdAt", "desc")
@@ -47,17 +36,18 @@ const DisplayAllmembers = (props: Props) => {
   useEffect(() => {
     // リアルタイムでデータを取得する
     onSnapshot(collectionRef, (querySnapshot) => {
-      const usersResults: Users[] = [];
+      const usersResults: User[] = [];
       querySnapshot.forEach((doc) => {
         usersResults.push({
           uid: doc.data().uid,
+          email: doc.data().email,
           coverPicture: doc.data().coverPicture,
-          createdAt: doc.data().createdAt,
+          profilePicture: doc.data().profilePicture,
           followers: doc.data().followers,
           followings: doc.data().followings,
-          profilePicture: doc.data().profilePicture,
+          createdAt: doc.data().createdAt,
+          updatedAt: doc.data().uodatedAt,
           salesTalk: doc.data().salesTalk,
-          updatedAt: doc.data().updatedAt,
           username: doc.data().username,
         });
       });
@@ -114,7 +104,7 @@ const DisplayAllmembers = (props: Props) => {
                 ) : channelMember.includes(user.uid) ? (
                   ""
                 ) : (
-                  <DisplayMembers user={user} key={user.uid} id={user.uid} />
+                  <DisplayMembers user={user} key={user.uid} />
                 )
               )}
             </Box>

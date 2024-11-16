@@ -10,26 +10,17 @@ import {
 } from "firebase/firestore";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { closeModal } from "../../../redux/features/modalSlice";
-import { setChannelInfo } from "../../../redux/features/channelSlice";
-import Chat from "../chat/Chat";
+import { type User } from "../../../types/user";
 
-type userProps = {
-  id: string;
-  user: {
-    uid: string;
-    coverPicture: string;
-    createdAt: string;
-    followers: [];
-    followings: [];
-    profilePicture: string;
-    salesTalk: string;
-    updatedAt: string;
-    username: string;
-  };
+// import { setChannelInfo } from "../../../redux/features/channelSlice";
+// import Chat from "../chat/Chat";
+
+type Props = {
+  user: User;
 };
 
-const DisplayMember = (props: userProps) => {
-  const { id, user } = props;
+const DisplayMember = (props: Props) => {
+  const { user } = props;
   const dispatch = useAppDispatch();
 
   const channelId = useAppSelector((state) => state.channel.channelId);
@@ -38,7 +29,7 @@ const DisplayMember = (props: userProps) => {
     if (user.uid) {
       const groupDocRef = doc(db, "channels", String(channelId));
       await updateDoc(groupDocRef, {
-        channelMember: arrayUnion(id),
+        channelMember: arrayUnion(user.id),
       });
       dispatch(closeModal());
       const docRef = doc(db, "channels", String(channelId));

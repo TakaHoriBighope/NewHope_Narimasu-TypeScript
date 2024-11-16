@@ -13,6 +13,7 @@ import DisplayMembers from "./DisplayMember";
 import { closeModal } from "../../../redux/features/modalSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import CloseIcon from "@mui/icons-material/Close";
+import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { type User } from "../../../types/user";
 
 type Props = {
@@ -111,9 +112,9 @@ const DisplayAllmembers = (props: Props) => {
           </Box>
           <Box>
             <IconButton
-              sx={{ gap: "15px", color: "#7b7c85", marginTop: "30px" }}
+              sx={{ gap: "15px", color: "#2c517c", marginTop: "30px" }}
             >
-              <CloseIcon onClick={() => dispatch(closeModal())} />
+              <CloseFullscreenIcon onClick={() => dispatch(closeModal())} />
             </IconButton>
           </Box>
         </Box>

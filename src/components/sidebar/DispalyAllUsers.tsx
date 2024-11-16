@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import DispFollower from "./DispFollower";
 import { db } from "../../firebase";
+import { type User } from "../../types/user";
 import {
   DocumentData,
   Query,
@@ -11,20 +12,20 @@ import {
   query,
 } from "firebase/firestore";
 
-type Users = {
-  uid: string;
-  coverPicture: string;
-  createdAt: string;
-  followers: [];
-  followings: [];
-  profilePicture: string;
-  salesTalk: string;
-  updatedAt: string;
-  username: string;
-};
+// type Users = {
+//   uid: string;
+//   coverPicture: string;
+//   createdAt: string;
+//   followers: [];
+//   followings: [];
+//   profilePicture: string;
+//   salesTalk: string;
+//   updatedAt: string;
+//   username: string;
+// };
 
 const DisplayAllUsers = () => {
-  const [users, setUsers] = useState<Users[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const collectionRef: Query<DocumentData> = query(
     collection(db, "users"),
     orderBy("createdAt", "desc")
@@ -33,17 +34,18 @@ const DisplayAllUsers = () => {
   useEffect(() => {
     // リアルタイムでデータを取得する
     onSnapshot(collectionRef, (querySnapshot) => {
-      const usersResults: Users[] = [];
+      const usersResults: User[] = [];
       querySnapshot.forEach((doc) => {
         usersResults.push({
           uid: doc.data().uid,
+          email: doc.data().email,
           coverPicture: doc.data().coverPicture,
-          createdAt: doc.data().createdAt,
+          profilePicture: doc.data().profilePicture,
           followers: doc.data().followers,
           followings: doc.data().followings,
-          profilePicture: doc.data().profilePicture,
+          createdAt: doc.data().createdAt,
+          updatedAt: doc.data().uodatedAt,
           salesTalk: doc.data().salesTalk,
-          updatedAt: doc.data().updatedAt,
           username: doc.data().username,
         });
       });

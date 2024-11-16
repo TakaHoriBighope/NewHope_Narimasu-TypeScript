@@ -143,7 +143,7 @@ const ShareTimeLine = () => {
           {posts.map((post) =>
             loginUserData?.followings?.includes(post.uid) ? ( //homeで表示する
               <ListItemButton>
-                <ShareList key={post.uid} post={post} />
+                <ShareList key={post.id} post={post} />
               </ListItemButton>
             ) : (
               ""

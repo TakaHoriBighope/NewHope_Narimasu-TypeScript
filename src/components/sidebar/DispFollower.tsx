@@ -13,19 +13,23 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useTranslation } from "react-i18next";
 import { closeSelectPosterModal } from "../../redux/features/selectPosterModalSlice";
+import { type User } from "../../types/user";
 
-type userProps = {
-  user: {
-    uid: string;
-    coverPicture: string;
-    createdAt: string;
-    followers: [];
-    followings: [];
-    profilePicture: string;
-    salesTalk: string;
-    updatedAt: string;
-    username: string;
-  };
+// type userProps = {
+//   user: {
+//     uid: string;
+//     coverPicture: string;
+//     createdAt: string;
+//     followers: [];
+//     followings: [];
+//     profilePicture: string;
+//     salesTalk: string;
+//     updatedAt: string;
+//     username: string;
+//   };
+// };
+type Props = {
+  user: User;
 };
 
 interface Follow {
@@ -33,8 +37,10 @@ interface Follow {
   uid: "";
 }
 
-const DispFollower: React.FC<userProps> = ({ user }) => {
+const DispFollower = (props: Props) => {
   //ログインしているユーザー(uid, email address, username(displayName))
+  const { user } = props;
+
   const loginUser = useAppSelector((state) => state.user.user);
   const lang = useAppSelector((state) => state.lang);
   const [t, i18n] = useTranslation();

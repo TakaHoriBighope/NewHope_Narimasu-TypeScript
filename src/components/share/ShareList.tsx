@@ -87,6 +87,7 @@ const ShareList = (props: Props) => {
     if (auth.currentUser === null) {
       return;
     }
+    console.log("Deleted: ", id);
     const ref = doc(db, "posts", id);
     deleteDoc(ref).catch(() => {
       console.log("faild");
@@ -148,7 +149,6 @@ const ShareList = (props: Props) => {
               }}
             >
               <Typography sx={{ pl: 4, fontSize: "small", fontWeight: 550 }}>
-                {/* {format(createdAt.toDate())} */}
                 {format(new Date(createdAt?.toDate()).toLocaleString())}
               </Typography>
             </Box>
@@ -166,7 +166,7 @@ const ShareList = (props: Props) => {
               ) : (
                 ""
               )}
-              {isEditOpen.isEditOpen ? EditShare(id) : null}
+              {isEditOpen.isEditOpen ? <EditShare id={id} /> : null}
             </Box>
             {postingUserData?.uid === loginUser?.uid ? (
               //他人の投稿は削除できない

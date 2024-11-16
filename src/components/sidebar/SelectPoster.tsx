@@ -15,18 +15,19 @@ import {
 } from "firebase/firestore";
 import { closeSelectPosterModal } from "../../redux/features/selectPosterModalSlice";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
+import { type User } from "../../types/user";
 
-type Users = {
-  uid: string;
-  coverPicture: string;
-  createdAt: string;
-  followers: [];
-  followings: [];
-  profilePicture: string;
-  salesTalk: string;
-  updatedAt: string;
-  username: string;
-};
+// type Users = {
+//   uid: string;
+//   coverPicture: string;
+//   createdAt: string;
+//   followers: [];
+//   followings: [];
+//   profilePicture: string;
+//   salesTalk: string;
+//   updatedAt: string;
+//   username: string;
+// };
 
 const SelectPoster = () => {
   const lang = useAppSelector((state) => state.lang);
@@ -39,7 +40,7 @@ const SelectPoster = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang, i18n]);
 
-  const [users, setUsers] = useState<Users[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const collectionRef: Query<DocumentData> = query(
     collection(db, "users"),
     orderBy("createdAt", "desc")
@@ -48,17 +49,18 @@ const SelectPoster = () => {
   useEffect(() => {
     // リアルタイムでデータを取得する
     onSnapshot(collectionRef, (querySnapshot) => {
-      const usersResults: Users[] = [];
+      const usersResults: User[] = [];
       querySnapshot.forEach((doc) => {
         usersResults.push({
           uid: doc.data().uid,
+          email: doc.data().email,
           coverPicture: doc.data().coverPicture,
-          createdAt: doc.data().createdAt,
+          profilePicture: doc.data().profilePicture,
           followers: doc.data().followers,
           followings: doc.data().followings,
-          profilePicture: doc.data().profilePicture,
+          createdAt: doc.data().createdAt,
+          updatedAt: doc.data().uodatedAt,
           salesTalk: doc.data().salesTalk,
-          updatedAt: doc.data().updatedAt,
           username: doc.data().username,
         });
       });

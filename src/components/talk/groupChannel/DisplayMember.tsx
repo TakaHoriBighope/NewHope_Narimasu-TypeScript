@@ -50,7 +50,7 @@ const DisplayMember = (props: Props) => {
     }
     // window.location.reload();
   };
-
+  // eslint-disable-next-line
   const handleChangeGroupOut = async () => {
     if (user.uid) {
       const groupOutDocRef = doc(db, "channels", channelId ?? "");

@@ -30,6 +30,7 @@ const DispFollower = (props: Props) => {
 
   const loginUser = useAppSelector((state) => state.user.user);
   const lang = useAppSelector((state) => state.lang);
+  // eslint-disable-next-line
   const [t, i18n] = useTranslation();
   const dispatch = useAppDispatch();
 

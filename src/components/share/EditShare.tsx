@@ -23,6 +23,7 @@ type Props = {
 
 const EditShare = (props: Props) => {
   const { id } = props;
+  console.log("to Edit:", id);
   // const [inputText, setInputText] = useState<string>("");
   // eslint-disable-next-line
   const { t, i18n } = useTranslation();

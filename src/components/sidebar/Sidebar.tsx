@@ -25,8 +25,10 @@ import { type User } from "../../types/user";
 const Sidebar = () => {
   // const UID1 = process.env.REACT_APP_UID1;
   const UID2 = process.env.REACT_APP_UID2;
+  console.log(UID2);
 
   const [currentUserData, setCurrentUserData] = useState<User>();
+  console.log(currentUserData?.uid);
 
   const lang = useAppSelector((state) => state.lang);
   const [t, i18n] = useTranslation();

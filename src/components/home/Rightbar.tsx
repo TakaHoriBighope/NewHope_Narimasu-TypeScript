@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ShowInfos from "../info/ShowInfos";
+import InfoList from "../info/InfoList";
 import { Box, IconButton, Typography } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { useTranslation } from "react-i18next";
@@ -17,6 +17,7 @@ import { db } from "../../firebase";
 // import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
 
 interface Infos {
+  id: string;
   createdAt: Timestamp;
   desc: string;
   imgURL: string;
@@ -43,6 +44,7 @@ const Rightbar = () => {
       const infosResults: Infos[] = [];
       querySnapshot.forEach((doc) => {
         infosResults.push({
+          id: doc.data().id,
           uid: doc.data().uid,
           createdAt: doc.data().createdAt,
           desc: doc.data().desc,
@@ -54,23 +56,6 @@ const Rightbar = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // return (
-  //   <Box sx={{ flex: 4, maxWidth: 500 }}>
-  //     <Box sx={{ display: "flex", alignItems: "center" }}>
-  //       <IconButton>
-  //         <StarIcon sx={{ fontSize: "25px", color: "blueviolet" }} />
-  //       </IconButton>
-  //       <Typography sx={{ fontWeight: "700", fontSize: "20px" }}>
-  //         {t("NH成増からのお知らせ")}
-  //       </Typography>
-  //     </Box>
-  //     {infos.map((info) => (
-  //       <ShowInfos info={info} key={info.uid} />
-  //     ))}
-  //   </Box>
-  // );
-  // };
 
   return (
     <Box
@@ -91,7 +76,7 @@ const Rightbar = () => {
           </Typography>
         </Box>
         {infos.map((info) => (
-          <ShowInfos info={info} key={info.uid} />
+          <InfoList info={info} key={info.uid} />
         ))}
       </Box>
     </Box>

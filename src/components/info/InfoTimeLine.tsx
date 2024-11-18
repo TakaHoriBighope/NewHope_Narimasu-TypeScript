@@ -12,7 +12,7 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import ModalInform from "../info/ModalInform";
+import CreateInform from "../info/CreateInform";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
 import { type Info } from "../../types/info";
@@ -83,7 +83,7 @@ const InfoTimeLine = (props: Props) => {
           ) : (
             ""
           )}
-          {isOpen && <ModalInform />}
+          {isOpen && <CreateInform />}
           {infos.map((info) => (
             <ListItemButton>
               <UpInfo info={info} key={info.uid} />
@@ -105,7 +105,7 @@ const InfoTimeLine = (props: Props) => {
         >
           <EditIcon />
         </Fab>
-        {isOpen && <ModalInform />}
+        {isOpen && <CreateInform />}
         {infos.map((info) => (
           <ListItemButton>
             <UpInfo info={info} key={info.uid} />

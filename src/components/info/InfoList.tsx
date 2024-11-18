@@ -3,12 +3,20 @@ import React, { useEffect, useState } from "react";
 import { format } from "timeago.js";
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import GTranslateIcon from "@mui/icons-material/GTranslate";
-import { db } from "../../firebase";
-import { Timestamp, doc, getDoc, updateDoc } from "firebase/firestore";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { auth, db } from "../../firebase";
+import {
+  Timestamp,
+  doc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { type User } from "../../types/user";
 
 type InfosProps = {
   info: {
+    id: string;
     createdAt: Timestamp;
     desc: string;
     imgURL: string;
@@ -17,13 +25,14 @@ type InfosProps = {
   };
 };
 
-const ShowInfos: React.FC<InfosProps> = ({ info }) => {
-  const { likes, uid, desc, imgURL, createdAt } = info;
+const InfoList: React.FC<InfosProps> = ({ info }) => {
+  const { id, likes, uid, desc, imgURL, createdAt } = info;
 
   const [like, setLike] = useState<number>(likes.length);
   const [isLiked, setIsLiked] = useState(false);
 
   const [infoUserData, setInfoUserData] = useState<User>();
+  const loginUser = auth.currentUser;
 
   useEffect(() => {
     //postしたユーザーのDataをget
@@ -69,6 +78,17 @@ const ShowInfos: React.FC<InfosProps> = ({ info }) => {
     });
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
+  };
+
+  const deleteInfo = async (id: string) => {
+    if (auth.currentUser === null) {
+      return;
+    }
+    console.log("Deleted: ", id);
+    const ref = doc(db, "infos", id);
+    deleteDoc(ref).catch(() => {
+      console.log("faild");
+    });
   };
 
   return (
@@ -123,10 +143,18 @@ const ShowInfos: React.FC<InfosProps> = ({ info }) => {
         <IconButton sx={{ fontSize: "small", mr: 2 }}>
           <GTranslateIcon />
         </IconButton>
+        {infoUserData?.uid === loginUser?.uid ? (
+          //他人の投稿は削除できない
+          <IconButton sx={{ color: "red" }} onClick={() => deleteInfo(id)}>
+            <DeleteOutlinedIcon />
+          </IconButton>
+        ) : (
+          ""
+        )}
       </Box>
       <Divider sx={{ margin: "10px" }} />
     </Box>
   );
 };
 
-export default ShowInfos;
+export default InfoList;

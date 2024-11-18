@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../redux/features/modalSlice";
-import DoDisturbIcon from "@mui/icons-material/DoDisturb";
+import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
@@ -34,7 +34,7 @@ i18n.use(initReactI18next).init({
   },
 });
 
-const ModalInform = () => {
+const CreateInform = () => {
   const dispatch = useDispatch();
   const storage = getStorage();
   const user = auth.currentUser;
@@ -184,12 +184,12 @@ const ModalInform = () => {
                   <UploadFileIcon />
                 </Button>
                 <Button
-                  sx={{ color: "red" }}
+                  sx={{ color: "#2c517c" }}
                   onClick={() => {
                     dispatch(closeModal());
                   }}
                 >
-                  <DoDisturbIcon />
+                  <CloseFullscreenIcon />
                 </Button>
               </Box>
             </Box>
@@ -200,4 +200,4 @@ const ModalInform = () => {
   );
 };
 
-export default ModalInform;
+export default CreateInform;

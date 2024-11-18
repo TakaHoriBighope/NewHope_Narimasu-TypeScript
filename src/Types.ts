@@ -36,7 +36,7 @@ export interface ILangState {
 }
 
 export interface IPostingUserState {
-  uid: string;
+  id: string;
 }
 export interface IInfoState {
   uid: string[];

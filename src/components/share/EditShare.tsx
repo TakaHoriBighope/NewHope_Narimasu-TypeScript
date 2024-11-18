@@ -29,6 +29,7 @@ const EditShare = (props: Props) => {
   const lang = useAppSelector((state) => state.lang);
   const dispatch = useAppDispatch();
   // const user = useAppSelector((state) => state.user.user);
+  // const dis_id = useAppSelector((state) => state.postingUser.id);
   const [post, setPost] = useState<Post>({
     id: "",
     desc: "",

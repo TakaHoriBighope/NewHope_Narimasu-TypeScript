@@ -10,19 +10,19 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
 import { useTranslation } from "react-i18next";
-import { closeSelectPosterModal } from "../../redux/features/selectPosterModalSlice";
+// import { closeSelectPosterModal } from "../../redux/features/selectPosterModalSlice";
 import { type User } from "../../types/user";
 
 type Props = {
   user: User;
 };
 
-interface Follow {
+type Follow = {
   followings: string[];
   uid: "";
-}
+};
 
 const DispFollower = (props: Props) => {
   //ログインしているユーザー(uid, email address, username(displayName))
@@ -32,7 +32,6 @@ const DispFollower = (props: Props) => {
   const lang = useAppSelector((state) => state.lang);
   // eslint-disable-next-line
   const [t, i18n] = useTranslation();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     i18n.changeLanguage(lang.lang);
@@ -74,7 +73,6 @@ const DispFollower = (props: Props) => {
         followings: arrayUnion(user.uid),
       });
     }
-    dispatch(closeSelectPosterModal());
     window.location.reload();
   };
 
@@ -86,7 +84,6 @@ const DispFollower = (props: Props) => {
         followings: arrayRemove(user.uid),
       });
     }
-    dispatch(closeSelectPosterModal());
     window.location.reload();
   };
 

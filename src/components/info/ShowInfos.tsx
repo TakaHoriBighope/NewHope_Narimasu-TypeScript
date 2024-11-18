@@ -5,6 +5,7 @@ import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import GTranslateIcon from "@mui/icons-material/GTranslate";
 import { db } from "../../firebase";
 import { Timestamp, doc, getDoc, updateDoc } from "firebase/firestore";
+import { type User } from "../../types/user";
 
 type InfosProps = {
   info: {
@@ -16,47 +17,48 @@ type InfosProps = {
   };
 };
 
-interface Users {
-  uid: string;
-  coverPicture: string;
-  createdAt: string;
-  followers: [];
-  followings: [];
-  profilePicture: string;
-  salesTalk: string;
-  updatedAt: string;
-  username: string;
-}
-
 const ShowInfos: React.FC<InfosProps> = ({ info }) => {
   const { likes, uid, desc, imgURL, createdAt } = info;
 
   const [like, setLike] = useState<number>(likes.length);
   const [isLiked, setIsLiked] = useState(false);
 
-  const [infoUserData, setInfoUserData] = useState<Users>();
+  const [infoUserData, setInfoUserData] = useState<User>();
 
   useEffect(() => {
     //postしたユーザーのDataをget
-    const fetchUser = async () => {
-      const docSnap = await getDoc(doc(db, "users", uid));
-      if (docSnap.exists()) {
+    const docRef = doc(db, "users", uid);
+    getDoc(docRef)
+      .then((userDocRef) => {
+        const {
+          uid,
+          email,
+          coverPicture,
+          profilePicture,
+          followers,
+          followings,
+          salesTalk,
+          createdAt,
+          updatedAt,
+          username,
+        } = userDocRef.data() as User;
         setInfoUserData({
-          uid: docSnap.data().uid,
-          coverPicture: docSnap.data().coverPicture,
-          createdAt: docSnap.data().timestamp,
-          followers: docSnap.data().followers,
-          followings: docSnap.data().followings,
-          profilePicture: docSnap.data().profilePicture,
-          salesTalk: docSnap.data().salesTalk,
-          updatedAt: docSnap.data().updateAt,
-          username: docSnap.data().username,
+          id: userDocRef.id,
+          email,
+          uid,
+          coverPicture,
+          profilePicture,
+          followers,
+          followings,
+          salesTalk,
+          createdAt,
+          updatedAt,
+          username,
         });
-      } else {
-        console.log("No such document!");
-      }
-    };
-    fetchUser();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

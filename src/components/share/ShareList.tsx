@@ -10,22 +10,21 @@ import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { type Post } from "../../types/post";
 import { type User } from "../../types/user";
 import EditIcon from "@mui/icons-material/Edit";
-// import ModalShare from "../share/ModalShare";
 import EditShare from "../share/EditShare";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { openEditModal } from "../../redux/features/editModalSlice";
+import { setPostingUser } from "../../redux/features/postingSlice";
 
 // import { useNavigate } from "react-router-dom";
-// import { setPostingUser } from "../../redux/features/postingSlice";
-// import { useAppDispatch } from "../../redux/hooks";
 
 type Props = {
+  id: string;
   post: Post;
 };
 
 const ShareList = (props: Props) => {
-  const { post } = props;
-  const { id, desc, imgURL, likes, uid, createdAt } = post;
+  const { id, post } = props;
+  const { desc, imgURL, likes, uid, createdAt } = post;
 
   // const dispatch = useAppDispatch();
   const [like, setLike] = useState<number>(likes.length);
@@ -158,6 +157,7 @@ const ShareList = (props: Props) => {
                 <IconButton
                   sx={{ color: "blue" }}
                   onClick={() => {
+                    dispatch(setPostingUser(id));
                     dispatch(openEditModal());
                   }}
                 >

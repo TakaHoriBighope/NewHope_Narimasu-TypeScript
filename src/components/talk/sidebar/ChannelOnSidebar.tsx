@@ -1,9 +1,9 @@
 import { Box, IconButton, Typography } from "@mui/material";
 import { DocumentData } from "firebase/firestore";
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch } from "../../../redux/hooks";
 import { setChannelInfo } from "../../../redux/features/channelSlice";
-import { closeGroupModal } from "../../../redux/features/groupModalSlice";
+// import { closeGroupModal } from "../../../redux/features/groupModalSlice";
 import StarIcon from "@mui/icons-material/Star";
 
 type Props = {
@@ -11,12 +11,11 @@ type Props = {
   channel: DocumentData;
 };
 
-const SidebarChannel = (props: Props) => {
+const ChannelOnSidebar = (props: Props) => {
   const { id, channel } = props;
   const dispatch = useAppDispatch();
-  const isGroupOpen = useAppSelector((state) => state.groupModal);
-
-  console.log(isGroupOpen);
+  // eslint-disable-next-line
+  //const isGroupOpen = useAppSelector((state) => state.groupModal);
 
   return (
     <Box sx={{ paddingLeft: "20px", marginTop: "15px" }}>
@@ -44,7 +43,7 @@ const SidebarChannel = (props: Props) => {
               channelMember: channel.channel.channelMember,
             })
           );
-          dispatch(closeGroupModal());
+          // dispatch(closeGroupModal());
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -59,11 +58,10 @@ const SidebarChannel = (props: Props) => {
             </IconButton>
             {channel.channel.channelName}
           </Typography>
-          {/* <Box sx={{ flexDirection: "column" }}>{propName}</Box> */}
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default SidebarChannel;
+export default ChannelOnSidebar;

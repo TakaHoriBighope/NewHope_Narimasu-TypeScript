@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Avatar, Box, Fab, IconButton, List, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { ExpandMoreOutlined } from "@mui/icons-material";
-import SidebarChannel from "./SidebarChannel";
+import ChannelOnSidebar from "./ChannelOnSidebar";
 import { db } from "../../../firebase";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
@@ -142,7 +142,7 @@ const Sidebar = () => {
               </Box>
               <List>
                 {channels.map((channel) => (
-                  <SidebarChannel
+                  <ChannelOnSidebar
                     channel={channel}
                     id={channel.id}
                     key={channel.id}
@@ -216,7 +216,7 @@ const Sidebar = () => {
           </Box>
           <List>
             {channels.map((channel) => (
-              <SidebarChannel
+              <ChannelOnSidebar
                 channel={channel}
                 id={channel.id}
                 key={channel.id}

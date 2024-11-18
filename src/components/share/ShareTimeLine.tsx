@@ -24,9 +24,9 @@ import { type User } from "../../types/user";
 const ShareTimeLine = () => {
   const dispatch = useAppDispatch();
   const isSelectPosterOpen = useAppSelector((state) => state.selectPosterModal);
-  console.log(isSelectPosterOpen);
+  // console.log(isSelectPosterOpen);
   const isOpen = useAppSelector((state) => state.modal);
-  console.log(isOpen);
+  // console.log(isOpen);
   const isSp = useMediaQuery(mediaQuery.sp);
 
   //ログインしているユーザー(uid, email address, username(displayName))
@@ -143,7 +143,7 @@ const ShareTimeLine = () => {
           {posts.map((post) =>
             loginUserData?.followings?.includes(post.uid) ? ( //homeで表示する
               <ListItemButton>
-                <ShareList key={post.id} post={post} />
+                <ShareList key={post.id} post={post} id={post.id} />
               </ListItemButton>
             ) : (
               ""
@@ -169,7 +169,7 @@ const ShareTimeLine = () => {
         {posts.map((post) =>
           loginUserData?.followings?.includes(post.uid) ? ( //homeで表示する
             <ListItemButton>
-              <ShareList key={post.uid} post={post} />
+              <ShareList key={post.uid} post={post} id={post.id} />
             </ListItemButton>
           ) : (
             ""

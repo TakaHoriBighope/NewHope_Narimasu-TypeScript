@@ -12,7 +12,6 @@ import {
 import DisplayMembers from "./DisplayMember";
 import { closeModal } from "../../../redux/features/modalSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import CloseIcon from "@mui/icons-material/Close";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { type User } from "../../../types/user";
 

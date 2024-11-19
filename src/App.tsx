@@ -7,7 +7,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Information from "./pages/Information";
 import MSettings from "./pages/MSettings";
-import PSettings from "./pages/PSettings";
 import NotMatch from "./pages/NotMatch";
 import ShareTimeLine from "./components/share/ShareTimeLine";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -74,7 +73,6 @@ export const App = () => {
               <Route path="timeline" element={<ShareTimeLine />} />
               <Route path="information" element={<Information mode="main" />} />
               <Route path="msettings" element={<MSettings />} />
-              <Route path="psettings" element={<PSettings />} />
               <Route path="talk" element={<Talk />} />
               <Route path="*" element={<NotMatch />} />
               <Route path="rightbar" element={<Rightbar />} />

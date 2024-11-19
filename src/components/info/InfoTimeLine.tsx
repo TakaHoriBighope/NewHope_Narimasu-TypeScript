@@ -1,6 +1,14 @@
-import { Box, Fab, ListItemButton } from "@mui/material";
+import {
+  Box,
+  Fab,
+  ListItemButton,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
-import UpInfo from "./UpInfo";
+import StarIcon from "@mui/icons-material/Star";
+// import UpInfo from "./UpInfo";
+import InfoList from "./InfoList";
 import EditIcon from "@mui/icons-material/Edit";
 import { openModal } from "../../redux/features/modalSlice";
 import {
@@ -16,6 +24,7 @@ import CreateInform from "../info/CreateInform";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
 import { type Info } from "../../types/info";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   mode: string;
@@ -30,6 +39,8 @@ const InfoTimeLine = (props: Props) => {
   const { isOpen } = useAppSelector((state) => state.modal);
   console.log(isOpen);
   const isSp = useMediaQuery(mediaQuery.sp);
+
+  const [t] = useTranslation();
 
   // リアルタイムでinfoデータを取得する
   const collectionRef: Query<DocumentData> = query(
@@ -86,7 +97,7 @@ const InfoTimeLine = (props: Props) => {
           {isOpen && <CreateInform />}
           {infos.map((info) => (
             <ListItemButton>
-              <UpInfo info={info} key={info.uid} />
+              <InfoList info={info} key={info.uid} id={info.id} />
             </ListItemButton>
           ))}
         </Box>
@@ -94,23 +105,40 @@ const InfoTimeLine = (props: Props) => {
     );
   }
   return (
-    <Box sx={{ flex: 4, maxWidth: 790 }}>
-      <Box>
-        <Fab
-          size="small"
-          color="secondary"
-          aria-label="edit"
-          sx={{ position: "fixed", bottom: 20, left: 200 }}
-          onClick={() => dispatch(openModal())}
-        >
-          <EditIcon />
-        </Fab>
-        {isOpen && <CreateInform />}
-        {infos.map((info) => (
-          <ListItemButton>
-            <UpInfo info={info} key={info.uid} />
-          </ListItemButton>
-        ))}
+    <Box
+      sx={{
+        p: 2,
+        flex: 4,
+        maxWidth: 680,
+      }}
+    >
+      <Box sx={{ flex: 4, maxWidth: 500 }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <IconButton>
+            <StarIcon sx={{ fontSize: "25px", color: "blueviolet" }} />
+          </IconButton>
+          <Typography sx={{ fontWeight: "700", fontSize: "20px" }}>
+            {t("NH成増からのお知らせ")}
+          </Typography>
+        </Box>
+        <Box>
+          <Fab
+            size="small"
+            color="secondary"
+            aria-label="edit"
+            sx={{ position: "fixed", bottom: 20, right: 200 }}
+            onClick={() => dispatch(openModal())}
+          >
+            <EditIcon />
+          </Fab>
+          {isOpen && <CreateInform />}
+          {infos.map((info) => (
+            <ListItemButton>
+              {/* <UpInfo info={info} key={info.uid} /> */}
+              <InfoList info={info} key={info.uid} id={info.id} />
+            </ListItemButton>
+          ))}
+        </Box>
       </Box>
     </Box>
   );

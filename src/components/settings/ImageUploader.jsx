@@ -106,7 +106,7 @@ const ImageUploader = () => {
   };
   return (
     <>
-      <Box sx={{ flex: 3.5, maxWidth: 500 }}>
+      <Box sx={{ flex: 3.0, maxWidth: 450 }}>
         {loading ? (
           <h2>{t("登録中...")}</h2>
         ) : (
@@ -123,7 +123,7 @@ const ImageUploader = () => {
                   border: "none",
                   padding: "36px",
                   borderRadius: "10px",
-                  boxShadow: "0px 0px 8px gray",
+                  boxShadow: "0px 0px 4px gray",
                   color: "gray",
                 }}
               >
@@ -141,13 +141,13 @@ const ImageUploader = () => {
                       <FormControlLabel
                         value="profile"
                         control={<Radio />}
-                        label={t("プロフィール")}
+                        label={t("プロフィール画像")}
                       />
-                      <FormControlLabel
+                      {/* <FormControlLabel
                         value="back"
                         control={<Radio />}
                         label={t("背景画像")}
-                      />
+                      /> */}
                     </Box>
                   </RadioGroup>
                 </FormControl>

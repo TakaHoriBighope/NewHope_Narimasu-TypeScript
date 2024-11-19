@@ -149,7 +149,7 @@ const Sidebar = () => {
         <ListItemButton>
           <Box>
             <Link
-              to={"/pSettings"}
+              to={"/msettings"}
               style={{ textDecoration: "none", color: "black" }}
             >
               <Box

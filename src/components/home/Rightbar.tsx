@@ -6,31 +6,31 @@ import { useTranslation } from "react-i18next";
 import {
   DocumentData,
   Query,
-  Timestamp,
   collection,
   onSnapshot,
   orderBy,
   query,
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import { type Info } from "../../types/info";
 // import { useAppSelector } from "../../redux/hooks";
 // import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
 
-interface Infos {
-  id: string;
-  createdAt: Timestamp;
-  desc: string;
-  imgURL: string;
-  likes: [];
-  uid: string;
-}
+// interface Infos {
+//   id: string;
+//   createdAt: Timestamp;
+//   desc: string;
+//   imgURL: string;
+//   likes: [];
+//   uid: string;
+// }
 
 const Rightbar = () => {
   // const isSp = useMediaQuery(mediaQuery.sp);
   // const loginUser = useAppSelector((state) => state.user.user);
 
   // const HomeRightbar = () => {
-  const [infos, setInfos] = useState<Infos[]>([]);
+  const [infos, setInfos] = useState<Info[]>([]);
 
   const [t] = useTranslation();
 
@@ -41,7 +41,7 @@ const Rightbar = () => {
     );
     // リアルタイムでデータを取得する
     onSnapshot(collectionRef, (querySnapshot) => {
-      const infosResults: Infos[] = [];
+      const infosResults: Info[] = [];
       querySnapshot.forEach((doc) => {
         infosResults.push({
           id: doc.data().id,
@@ -50,6 +50,7 @@ const Rightbar = () => {
           desc: doc.data().desc,
           likes: doc.data().likes,
           imgURL: doc.data().imgURL,
+          read: doc.data().read,
         });
       });
       setInfos(infosResults);
@@ -76,7 +77,7 @@ const Rightbar = () => {
           </Typography>
         </Box>
         {infos.map((info) => (
-          <InfoList info={info} key={info.uid} />
+          <InfoList info={info} key={info.id} id={info.id} />
         ))}
       </Box>
     </Box>

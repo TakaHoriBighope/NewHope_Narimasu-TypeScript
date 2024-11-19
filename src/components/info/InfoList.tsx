@@ -5,34 +5,31 @@ import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import GTranslateIcon from "@mui/icons-material/GTranslate";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { auth, db } from "../../firebase";
-import {
-  Timestamp,
-  doc,
-  getDoc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { type User } from "../../types/user";
+import { type Info } from "../../types/info";
+import EditIcon from "@mui/icons-material/Edit";
+import EditInfo from "../info/EditInfo";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { openEditModal } from "../../redux/features/editModalSlice";
 
-type InfosProps = {
-  info: {
-    id: string;
-    createdAt: Timestamp;
-    desc: string;
-    imgURL: string;
-    likes: [];
-    uid: string;
-  };
+type Props = {
+  id: string;
+  info: Info;
 };
 
-const InfoList: React.FC<InfosProps> = ({ info }) => {
-  const { id, likes, uid, desc, imgURL, createdAt } = info;
+const InfoList = (props: Props) => {
+  const { id, info } = props;
+  const { likes, uid, desc, imgURL, createdAt } = info;
 
   const [like, setLike] = useState<number>(likes.length);
   const [isLiked, setIsLiked] = useState(false);
 
   const [infoUserData, setInfoUserData] = useState<User>();
   const loginUser = auth.currentUser;
+
+  const dispatch = useAppDispatch();
+  const isEditOpen = useAppSelector((state) => state.editModal);
 
   useEffect(() => {
     //postしたユーザーのDataをget
@@ -143,6 +140,22 @@ const InfoList: React.FC<InfosProps> = ({ info }) => {
         <IconButton sx={{ fontSize: "small", mr: 2 }}>
           <GTranslateIcon />
         </IconButton>
+        <Box>
+          {infoUserData?.uid === loginUser?.uid ? (
+            //他人の投稿は編集できない
+            <IconButton
+              sx={{ color: "blue" }}
+              onClick={() => {
+                dispatch(openEditModal());
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          ) : (
+            ""
+          )}
+          {isEditOpen.isEditOpen ? <EditInfo id={id} /> : null}
+        </Box>
         {infoUserData?.uid === loginUser?.uid ? (
           //他人の投稿は削除できない
           <IconButton sx={{ color: "red" }} onClick={() => deleteInfo(id)}>

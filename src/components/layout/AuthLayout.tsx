@@ -105,7 +105,7 @@ const AuthLayout = () => {
             sx={{
               fontSize: "40px",
               fontWeight: 800,
-              color: "#41428b",
+              color: "#800",
               marginBottom: "10px",
             }}
           >
@@ -115,14 +115,16 @@ const AuthLayout = () => {
             sx={{
               fontSize: "35px",
               fontWeight: 800,
-              color: "#41428b",
+              color: "#800",
               marginBottom: "10px",
               marginTop: "-15px",
             }}
           >
             {t("成増")}
           </Typography>
-          <Typography sx={{ fontSize: "24px", color: "gray", fontWeight: 650 }}>
+          <Typography
+            sx={{ fontSize: "24px", color: "#642e2e", fontWeight: 650 }}
+          >
             {t("チームでする教会")}
           </Typography>
           <Outlet />

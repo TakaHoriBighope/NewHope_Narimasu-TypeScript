@@ -224,7 +224,8 @@ const Chat = () => {
     <Box
       sx={{
         display: "flex",
-        flex: "4.5",
+        flex: "4.0",
+        maxWidth: "790",
         flexDirection: "column",
         // flexGrow: 1,
         backgroundColor: "#ffffff",
@@ -265,6 +266,7 @@ const Chat = () => {
       <Box
         sx={{
           display: "flex",
+          maxWidth: "790",
           alignItems: "center",
           justifyContent: "space-between",
           padding: "15px",
@@ -272,15 +274,9 @@ const Chat = () => {
           borderRadius: "5px",
           margin: "15px",
           color: "gray",
+          paddingRight: "5px",
         }}
       >
-        <IconButton
-          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-            sendMessage(event)
-          }
-        >
-          <SendIcon fontSize="large" />
-        </IconButton>
         <form style={{ flexGrow: 1 }}>
           <TextareaAutosize
             placeholder={t("メッセージを送信")}
@@ -300,6 +296,14 @@ const Chat = () => {
             value={inputText}
           />
         </form>
+        <IconButton
+          style={{ marginLeft: "5px" }}
+          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+            sendMessage(event)
+          }
+        >
+          <SendIcon fontSize="large" />
+        </IconButton>
 
         {/* <input
             type="text"

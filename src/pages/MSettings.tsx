@@ -4,6 +4,7 @@ import Sidebar from "../components/sidebar/Sidebar";
 import Rightbar from "../components/home/Rightbar";
 import { Box } from "@mui/material";
 import ImageUploader from "../components/settings/ImageUploader";
+import { SettingsITem } from "../components/settings/SettingsItem";
 
 const MSettings = () => {
   return (
@@ -11,7 +12,8 @@ const MSettings = () => {
       <Topbar />
       <Box sx={{ display: "flex", width: "100%", backgroundColor: "#f8fcff" }}>
         <Sidebar />
-        <ImageUploader />
+        {/* <ImageUploader /> */}
+        <SettingsITem />
         <Rightbar />
       </Box>
     </>

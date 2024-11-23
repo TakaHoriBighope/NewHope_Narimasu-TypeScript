@@ -109,36 +109,36 @@ const InfoTimeLine = (props: Props) => {
       sx={{
         p: 2,
         flex: 4,
-        maxWidth: 680,
+        maxWidth: 790,
+        height: "100vh",
+        overflowY: "scroll",
       }}
     >
-      <Box sx={{ flex: 4, maxWidth: 500 }}>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <IconButton>
-            <StarIcon sx={{ fontSize: "25px", color: "blueviolet" }} />
-          </IconButton>
-          <Typography sx={{ fontWeight: "700", fontSize: "20px" }}>
-            {t("NH成増からのお知らせ")}
-          </Typography>
-        </Box>
-        <Box>
-          <Fab
-            size="small"
-            color="secondary"
-            aria-label="edit"
-            sx={{ position: "fixed", bottom: 20, right: 200 }}
-            onClick={() => dispatch(openModal())}
-          >
-            <EditIcon />
-          </Fab>
-          {isOpen && <CreateInform />}
-          {infos.map((info) => (
-            <ListItemButton>
-              {/* <UpInfo info={info} key={info.uid} /> */}
-              <InfoList info={info} key={info.uid} id={info.id} />
-            </ListItemButton>
-          ))}
-        </Box>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <IconButton>
+          <StarIcon sx={{ fontSize: "25px", color: "blueviolet" }} />
+        </IconButton>
+        <Typography sx={{ fontWeight: "700", fontSize: "20px" }}>
+          {t("NH成増からのお知らせ")}
+        </Typography>
+      </Box>
+      <Box>
+        <Fab
+          size="small"
+          color="secondary"
+          aria-label="edit"
+          sx={{ position: "fixed", bottom: 20, right: 200 }}
+          onClick={() => dispatch(openModal())}
+        >
+          <EditIcon />
+        </Fab>
+        {isOpen && <CreateInform />}
+        {infos.map((info) => (
+          <ListItemButton>
+            {/* <UpInfo info={info} key={info.uid} /> */}
+            <InfoList info={info} key={info.uid} id={info.id} />
+          </ListItemButton>
+        ))}
       </Box>
     </Box>
   );

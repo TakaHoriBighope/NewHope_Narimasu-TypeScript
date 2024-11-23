@@ -180,20 +180,20 @@ const Login = () => {
         sx={{
           fontSize: "16px",
           fontWeight: "550",
-          color: "gray",
+          color: "#800",
         }}
       >
-        {/* ログイン */}
         {t("ログイン")}
       </Typography>
       <Button onClick={() => setLang(lang === "en" ? "ja" : "en")}>
-        {t("言語を切り替え")}
+        <Typography sx={{ color: "blue" }}>{t("言語を切り替え")}</Typography>
       </Button>
       <Box component="form" onSubmit={handleSubmit} noValidate>
         <TextField
           fullWidth
           id="username"
           label={t("メールアドレス")}
+          color="primary"
           margin="normal"
           name="email"
           required
@@ -205,6 +205,7 @@ const Login = () => {
           fullWidth
           id="password"
           label={t("パスワード")}
+          color="primary"
           margin="normal"
           name="password"
           type="password"

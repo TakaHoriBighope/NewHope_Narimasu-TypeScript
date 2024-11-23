@@ -97,10 +97,11 @@ const ShareList = (props: Props) => {
     <Box
       sx={{
         p: 2,
-        maxWidth: 560,
+        flex: "4",
+        maxWidth: "790",
         boxShadow: "0px 3px 10px 0px rgba(0, 0, 0, 0.2)",
         borderRadius: "10px",
-        margin: "15px 0 15px 10px",
+        margin: "10px 0 10px 10px",
       }}
     >
       <Box

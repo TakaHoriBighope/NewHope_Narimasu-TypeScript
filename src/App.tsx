@@ -12,7 +12,7 @@ import ShareTimeLine from "./components/share/ShareTimeLine";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import { blue } from "@mui/material/colors";
+// import { blue } from "@mui/material/colors";
 import { useEffect } from "react";
 import { auth, db } from "./firebase";
 import { login, logout } from "./redux/features/userSlice";
@@ -55,7 +55,7 @@ export const App = () => {
   }, [dispatch]);
 
   const theme = createTheme({
-    palette: { primary: blue },
+    palette: { primary: { main: "#800" } },
   });
   return (
     <>

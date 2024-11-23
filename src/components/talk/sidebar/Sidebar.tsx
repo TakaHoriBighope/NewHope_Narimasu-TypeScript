@@ -169,6 +169,7 @@ const Sidebar = () => {
       sx={{
         display: "flex",
         flex: "2.5",
+        maxWidth: "412",
         backgroundColor: "gray",
         fontWeight: "600",
         height: "95vh",

@@ -276,12 +276,12 @@ const Register = () => {
           boxShadow: "0px 3px 10px 0px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <Typography sx={{ fontSize: "18px", fontWeight: "550", color: "gray" }}>
+        <Typography sx={{ fontSize: "18px", fontWeight: "550", color: "#800" }}>
           {/* 新規登録 */}
           {t("新規登録")}
         </Typography>
         <Button onClick={() => setLang(lang === "en" ? "ja" : "en")}>
-          {t("言語を切り替え")}
+          <Typography sx={{ color: "blue" }}>{t("言語を切り替え")}</Typography>
         </Button>
         <Box component="form" onSubmit={handleSubmit} noValidate>
           <TextField
@@ -289,6 +289,7 @@ const Register = () => {
             type="text"
             id="username"
             label={t("ユーザー名")}
+            color="primary"
             margin="normal"
             name="username"
             required
@@ -300,6 +301,7 @@ const Register = () => {
             fullWidth
             id="email"
             label={t("メールアドレス")}
+            color="primary"
             margin="normal"
             name="email"
             required
@@ -312,6 +314,7 @@ const Register = () => {
             fullWidth
             id="password"
             label={t("パスワード")}
+            color="primary"
             margin="normal"
             name="password"
             type="password"
@@ -324,6 +327,7 @@ const Register = () => {
             fullWidth
             id="confirmPassword"
             label={t("確認用パスワード")}
+            color="primary"
             margin="normal"
             name="confirmPassword"
             type="password"

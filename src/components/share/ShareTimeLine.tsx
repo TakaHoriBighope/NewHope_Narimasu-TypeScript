@@ -154,7 +154,7 @@ const ShareTimeLine = () => {
     );
   }
   return (
-    <Box sx={{ flex: 4, maxWidth: 790 }}>
+    <Box sx={{ height: "100vh", overflowY: "scroll", flex: 4, maxWidth: 790 }}>
       <Box>
         <Fab
           size="small"

@@ -1,5 +1,5 @@
-import React, { ChangeEventHandler, useState } from "react";
-import { Box, Typography, IconButton } from "@mui/material";
+import React, { useState, ChangeEventHandler } from "react";
+import { Box, Typography, IconButton, TextField } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -9,7 +9,6 @@ import StarIcon from "@mui/icons-material/Star";
 
 export const CreateTalkGroup = () => {
   const [groupName, setGroupName] = useState<string>("");
-  // const { user, setUser } = useState<User>();
   const [t] = useTranslation();
 
   //ログインしているユーザー(uid, email address, username(displayName))
@@ -32,6 +31,8 @@ export const CreateTalkGroup = () => {
       await updateDoc(channelRef, {
         channelId: docRef.id,
       });
+    } else {
+      return;
     }
     setGroupName("");
   };
@@ -48,7 +49,7 @@ export const CreateTalkGroup = () => {
         </IconButton>
         <Typography
           sx={{
-            fontSize: "20px",
+            fontSize: "16px",
             fontWeight: "600",
             color: "#483c3c",
           }}
@@ -74,25 +75,21 @@ export const CreateTalkGroup = () => {
           justifyContent: "center",
         }}
       >
-        <Box
-          sx={{
-            marginTop: "10px",
-          }}
-        >
-          <input
-            placeholder="input new group name"
-            style={{
-              padding: "5px",
-              marginTop: "15px",
-              height: 40,
-              fontSize: 20,
-              borderColor: "#800",
-              borderBottomWidth: 1,
-            }}
-            onChange={handleChange}
-            value={groupName}
-          />
-        </Box>
+        <TextField
+          // fullWidth
+          inputProps={{ inputMode: "text" }}
+          id="groupName"
+          label={t("グループネーム")}
+          margin="normal"
+          name="groupName"
+          required
+          // helperText={nameErrText}
+          // error={nameErrText !== ""}
+          // disabled={loading}
+          size="small"
+          onChange={handleChange}
+          value={groupName}
+        />
         <Box>
           {!!groupName ? (
             <IconButton
@@ -100,7 +97,7 @@ export const CreateTalkGroup = () => {
               onClick={onSubmitCreateNewGroup}
             >
               {/* <SaveIcon fontSize="large" /> */}
-              <SaveIcon sx={{ marginTop: "25px", fontSize: "35px" }} />
+              <SaveIcon sx={{ marginTop: "8px", fontSize: "35px" }} />
             </IconButton>
           ) : null}
         </Box>

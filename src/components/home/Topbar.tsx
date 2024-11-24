@@ -194,7 +194,7 @@ const Topbar = () => {
         </IconButton>
         <Button
           onClick={() => dispatch(setLanguage(lang === "en" ? "ja" : "en"))}
-          sx={{ position: "fixed", top: "15px", right: "70px" }}
+          sx={{ position: "fixed", top: "15px", right: "70px", color: "white" }}
         >
           {t("言語を切り替え")}
         </Button>

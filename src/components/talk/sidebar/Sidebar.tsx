@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Box, Fab, IconButton, List, Typography } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import { ExpandMoreOutlined } from "@mui/icons-material";
 import ChannelOnSidebar from "./ChannelOnSidebar";
 import { db } from "../../../firebase";
@@ -12,7 +11,6 @@ import {
   collection,
   onSnapshot,
   query,
-  addDoc,
 } from "firebase/firestore";
 import assets from "../../../assets";
 import { useTranslation } from "react-i18next";
@@ -53,24 +51,6 @@ const Sidebar = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [closeModal]);
-
-  const addChannel = async () => {
-    let text = "";
-    if (lang.lang === "ja") {
-      text = "新しいチャンネルを作成します。あなたが発起人です。";
-    } else {
-      text = "Let's cleate a new channel! You are a proposer.";
-    }
-    let channelName: string | null = prompt(text);
-
-    if (channelName) {
-      await addDoc(collection(db, "channels"), {
-        channelName: channelName,
-        channelProp: loginUser?.uid,
-        channelMember: [],
-      });
-    }
-  };
 
   if (isSp) {
     return (
@@ -127,17 +107,9 @@ const Sidebar = () => {
                   }}
                 >
                   <ExpandMoreOutlined />
-                  <Typography sx={{ fontWeight: "600" }}>
+                  <Typography sx={{ fontWeight: "600", fontSize: "20px" }}>
                     {t("グループチャンネル")}
                   </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    cursor: "pointer",
-                    alignItems: "center",
-                  }}
-                >
-                  <AddIcon onClick={() => addChannel()} />
                 </Box>
               </Box>
               <List>
@@ -201,18 +173,9 @@ const Sidebar = () => {
               }}
             >
               <ExpandMoreOutlined />
-              <Typography sx={{ fontWeight: "600" }}>
+              <Typography sx={{ fontWeight: "600", fontSize: "20px" }}>
                 {t("グループチャンネル")}
               </Typography>
-            </Box>
-            <Box
-              sx={{
-                cursor: "pointer",
-                // display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <AddIcon onClick={() => addChannel()} />
             </Box>
           </Box>
           <List>

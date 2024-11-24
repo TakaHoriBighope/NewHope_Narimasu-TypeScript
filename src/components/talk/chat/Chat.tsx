@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, useEffect, useState } from "react";
 import ChatHeader from "./ChatHeader";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import ChatMessage from "./ChatMessage";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
@@ -126,7 +126,7 @@ const Chat = () => {
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
+            // flexDirection: "row",
             backgroundColor: "#ffffff",
             height: "80vh",
           }}
@@ -153,7 +153,7 @@ const Chat = () => {
                     <ChatMessage key={index} message={message} />
                   ))
                 ) : (
-                  <h3
+                  <Typography
                     style={{
                       height: "100%",
                       display: "flex",
@@ -163,7 +163,7 @@ const Chat = () => {
                     }}
                   >
                     {t("閲覧する権限はありません")}
-                  </h3>
+                  </Typography>
                 )
               ) : (
                 ""
@@ -174,6 +174,7 @@ const Chat = () => {
             <Box
               sx={{
                 display: "flex",
+                flexDirection: "row",
                 alignItems: "center",
                 width: "91%",
                 position: "absolute",
@@ -187,13 +188,6 @@ const Chat = () => {
                 color: "gray",
               }}
             >
-              <IconButton
-                onClick={(
-                  event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-                ) => sendMessage(event)}
-              >
-                <SendIcon fontSize="large" />
-              </IconButton>
               <form style={{ flexGrow: 1 }}>
                 <TextareaAutosize
                   placeholder={t("メッセージを送信")}
@@ -213,6 +207,13 @@ const Chat = () => {
                   value={inputText}
                 />
               </form>
+              <IconButton
+                onClick={(
+                  event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                ) => sendMessage(event)}
+              >
+                <SendIcon fontSize="large" />
+              </IconButton>
             </Box>
           </Box>
         </Box>
@@ -245,7 +246,7 @@ const Chat = () => {
               <ChatMessage message={message} key={index} />
             ))
           ) : (
-            <h3
+            <Typography
               style={{
                 height: "100%",
                 display: "flex",
@@ -255,7 +256,7 @@ const Chat = () => {
               }}
             >
               {t("閲覧する権限はありません")}
-            </h3>
+            </Typography>
           )
         ) : (
           ""
@@ -304,33 +305,6 @@ const Chat = () => {
         >
           <SendIcon fontSize="large" />
         </IconButton>
-
-        {/* <input
-            type="text"
-            placeholder={t("メッセージを送信")}
-            style={{
-              padding: "15px",
-              background: "transparent",
-              border: "none",
-              outline: "none",
-              color: "black",
-              fontSize: "large",
-              width: "100%",
-            }}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setInputText(e.target.value)
-            }
-            value={inputText}
-          /> 
-          <button
-            type="submit"
-            style={{ display: "none" }}
-            onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-              sendMessage(event)
-            }
-          >
-            送信
-          </button>*/}
       </Box>
     </Box>
   );

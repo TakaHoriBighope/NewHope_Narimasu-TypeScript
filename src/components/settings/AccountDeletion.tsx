@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Typography, IconButton } from "@mui/material";
+import React, { useEffect, useState, ChangeEventHandler } from "react";
+import { Box, Typography, IconButton, TextField } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {
   arrayRemove,
@@ -28,22 +28,32 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
+import { setLanguage } from "../../redux/features/langSlice";
 
 export const AccountDeletion = () => {
-  const [t] = useTranslation();
   const dispatch = useAppDispatch();
 
   //ログインしているユーザー(uid, email address, username(displayName))
   const [password, setPassword] = useState("");
   const [channels, setChannels] = useState<Channel[]>([]);
+  // const [passwordErrText, setPasswordErrText] = useState("");
+  // const [loading, setLoading] = useState(false);
+  const [t, i18n] = useTranslation();
 
   const [isOpen, setIsOpen] = useState(false);
+  let lang = "";
 
-  // const passwordCheck = (newText: string) => {
-  //   const regex = /^[a-zA-Z0-9]+$/;
-  //   const isValid = regex.test(newText);
-  //   setIsValid(isValid);
-  // };
+  useEffect(() => {
+    i18n.changeLanguage(lang);
+    dispatch(setLanguage(lang));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang, i18n]);
+
+  const handleChange: ChangeEventHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPassword(event.target.value);
+  };
 
   const onPressDeleteAccount = (password: string) => {
     const auth = getAuth();
@@ -135,7 +145,7 @@ export const AccountDeletion = () => {
         </IconButton>
         <Typography
           sx={{
-            fontSize: "20px",
+            fontSize: "16px",
             fontWeight: "600",
             color: "#483c3c",
           }}
@@ -151,32 +161,24 @@ export const AccountDeletion = () => {
           justifyContent: "center",
         }}
       >
-        <Box
-          sx={{
-            marginTop: "10px",
-          }}
-        >
-          <input
-            placeholder="input your passoword"
-            type="password"
-            style={{
-              padding: "5px",
-              marginTop: "15px",
-              height: 40,
-              fontSize: 20,
-              borderColor: "#800",
-              borderBottomWidth: 1,
-            }}
-            // autoCapitalize="none"
-            onChange={() => {
-              setPassword(password);
-              // passwordCheck(password);
-            }}
-            value={password}
-          />
-        </Box>
-        {!!password ? (
-          <Box>
+        <TextField
+          // fullWidth
+          inputProps={{ inputMode: "text" }}
+          id="password"
+          label={t("パスワード")}
+          margin="normal"
+          name="password"
+          type="password"
+          required
+          // helperText={passwordErrText}
+          // error={passwordErrText !== ""}
+          // disabled={loading}
+          size="small"
+          onChange={handleChange}
+          value={password}
+        />
+        <Box>
+          {!!password ? (
             <IconButton
               sx={{ color: "#800 " }}
               // onClick={() => onPressDeleteAccount(password)}
@@ -184,10 +186,10 @@ export const AccountDeletion = () => {
                 setIsOpen(true);
               }}
             >
-              <CheckCircleIcon sx={{ marginTop: "25px", fontSize: "35px" }} />
+              <CheckCircleIcon sx={{ marginTop: "8px", fontSize: "35px" }} />
             </IconButton>
-          </Box>
-        ) : null}
+          ) : null}
+        </Box>
 
         <Dialog
           open={isOpen}
@@ -201,6 +203,7 @@ export const AccountDeletion = () => {
             <Button
               variant="outlined"
               onClick={() => {
+                setPassword("");
                 setIsOpen(false);
               }}
             >

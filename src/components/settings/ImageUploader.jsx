@@ -18,14 +18,8 @@ const ImageUploader = () => {
 
   const [currentUserData, setCurrentUserData] = useState({});
   const dispatch = useAppDispatch();
-  const lang = useAppSelector((state) => state.lang.value);
 
-  const [t, i18n] = useTranslation();
-
-  useEffect(() => {
-    i18n.changeLanguage(lang);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang, i18n]);
+  const [t] = useTranslation();
 
   useEffect(() => {
     const fetchUser = () => {
@@ -90,7 +84,7 @@ const ImageUploader = () => {
           </IconButton>
           <Typography
             sx={{
-              fontSize: "20px",
+              fontSize: "16px",
               fontWeight: "600",
               color: "#483c3c",
             }}
@@ -99,11 +93,32 @@ const ImageUploader = () => {
           </Typography>
         </Box>
         {loading ? (
-          <h2>{t("登録中...")}</h2>
+          <Typography>{t("登録中...")}</Typography>
         ) : (
           <>
             {isUpLoaded ? (
-              <h2>{t("登録完了！")}</h2>
+              // <Typography>{t("登録完了！")}</Typography>
+              <Box
+                style={{
+                  marginTop: "10px",
+                  border: "2px dashed #800",
+                  width: "120px",
+                  height: "120px",
+                  top: "20px",
+                  left: "150px",
+                  position: "relative",
+                  borderRadius: "60px",
+                }}
+              >
+                <Avatar
+                  src={loginUser?.profilePicture}
+                  sx={{
+                    width: "120px",
+                    height: "120px",
+                    position: "relative",
+                  }}
+                />
+              </Box>
             ) : (
               <Box
                 style={{
@@ -129,11 +144,11 @@ const ImageUploader = () => {
                   style={{
                     marginTop: "10px",
                     border: "2px dashed #800",
-                    width: "230px",
-                    height: "230px",
+                    width: "120px",
+                    height: "120px",
                     padding: "35px 60px",
                     position: "relative",
-                    borderRadius: "115px",
+                    borderRadius: "60px",
                     marginBottom: "10px",
                   }}
                 >
@@ -141,21 +156,14 @@ const ImageUploader = () => {
                     <Avatar
                       src={loginUser?.profilePicture}
                       sx={{
-                        width: "230px",
-                        height: "230px",
+                        width: "120px",
+                        height: "120px",
                         top: "-37px",
-                        left: "-62px",
+                        left: "-60px",
                         // padding: "35px",
                         position: "relative",
                       }}
                     />
-                    {/* <PersonOutlineIcon
-                      sx={{
-                        width: "80px",
-                        height: "80px",
-                        color: "lightgray",
-                      }}
-                    /> */}
                   </Box>
                   <input
                     style={{

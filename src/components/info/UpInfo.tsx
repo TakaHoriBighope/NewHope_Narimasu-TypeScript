@@ -77,6 +77,8 @@ const UpInfo = (props: Props) => {
         borderRadius: "10px",
         margin: "1px 0 1px 5px",
         boxShadow: "0px 3px 10px 0px rgba(0, 0, 0, 0.2)",
+        height: "100vh",
+        overflowY: "scroll",
       }}
     >
       <Box

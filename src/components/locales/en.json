@@ -16,6 +16,7 @@
   "ユーザー名": "username",
   "メールアドレス": "e-mail",
   "パスワード": "password",
+  "グループネーム": "group name",
   "確認用パスワード": "confirmed password",
   "アカウント作成": "New Account",
   "すでにアカウントを持っていますか？　": "Already have your password?　",

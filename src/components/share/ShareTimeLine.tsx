@@ -113,7 +113,7 @@ const ShareTimeLine = () => {
 
   if (isSp) {
     return (
-      <Box>
+      <Box sx={{ height: "100vh", overflowY: "scroll" }}>
         <Box>
           <Fab
             size="small"

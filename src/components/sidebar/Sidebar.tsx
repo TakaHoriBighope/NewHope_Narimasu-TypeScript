@@ -33,6 +33,8 @@ const Sidebar = () => {
   const lang = useAppSelector((state) => state.lang);
   const [t, i18n] = useTranslation();
 
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
   useEffect(() => {
     i18n.changeLanguage(lang.lang);
     // dispatch(setLanguage(lang));
@@ -71,6 +73,13 @@ const Sidebar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleListItemClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    index: number
+  ) => {
+    setSelectedIndex(index);
+  };
+
   return (
     <Box>
       <List
@@ -82,7 +91,10 @@ const Sidebar = () => {
           backgroundColor: assets.colors.secondary,
         }}
       >
-        <ListItemButton>
+        <ListItemButton
+          selected={selectedIndex === 0}
+          onClick={(event) => handleListItemClick(event, 0)}
+        >
           <Link to="/" style={{ textDecoration: "none", color: "black" }}>
             <Box
               sx={{
@@ -100,7 +112,10 @@ const Sidebar = () => {
             </Box>
           </Link>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton
+          selected={selectedIndex === 1}
+          onClick={(event) => handleListItemClick(event, 1)}
+        >
           <Link to={"/talk"} style={{ textDecoration: "none", color: "black" }}>
             <Box
               sx={{
@@ -120,7 +135,10 @@ const Sidebar = () => {
         </ListItemButton>
 
         {currentUserData?.uid === UID2 ? (
-          <ListItemButton>
+          <ListItemButton
+            selected={selectedIndex === 2}
+            onClick={(event) => handleListItemClick(event, 2)}
+          >
             <Link
               to={"/information"}
               style={{ textDecoration: "none", color: "black" }}
@@ -138,7 +156,6 @@ const Sidebar = () => {
                 <Typography variant="body1" fontWeight="700">
                   {t("教会からお知らせ")}
                 </Typography>
-                {/* <PositionedMenuAdomin /> */}
               </Box>
             </Link>
           </ListItemButton>
@@ -146,7 +163,10 @@ const Sidebar = () => {
           ""
         )}
 
-        <ListItemButton>
+        <ListItemButton
+          selected={selectedIndex === 3}
+          onClick={(event) => handleListItemClick(event, 3)}
+        >
           <Box>
             <Link
               to={"/msettings"}

@@ -6,13 +6,23 @@ import { db } from "../../firebase";
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../redux/hooks";
 import StarIcon from "@mui/icons-material/Star";
+// import { setLanguage } from "../../redux/features/langSlice";
 
 export const CreateTalkGroup = () => {
   const [groupName, setGroupName] = useState<string>("");
   const [t] = useTranslation();
+  // const dispatch = useAppDispatch();
 
   //ログインしているユーザー(uid, email address, username(displayName))
   const loginUser = useAppSelector((state) => state.user.user);
+  // const [loading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   i18n.changeLanguage(lang);
+  //   dispatch(setLanguage(lang));
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [lang, i18n]);
 
   const handleChange: ChangeEventHandler = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -76,14 +86,16 @@ export const CreateTalkGroup = () => {
         }}
       >
         <TextField
-          // fullWidth
+          sx={{ "& .MuiInputBase-input": { height: 25 }, width: 230 }}
+          color="primary"
           inputProps={{ inputMode: "text" }}
           id="groupName"
           label={t("グループネーム")}
+          focused
           margin="normal"
           name="groupName"
           required
-          // helperText={nameErrText}
+          helperText={t("グループネームを入力して下さい。")}
           // error={nameErrText !== ""}
           // disabled={loading}
           size="small"
@@ -97,7 +109,7 @@ export const CreateTalkGroup = () => {
               onClick={onSubmitCreateNewGroup}
             >
               {/* <SaveIcon fontSize="large" /> */}
-              <SaveIcon sx={{ marginTop: "8px", fontSize: "35px" }} />
+              <SaveIcon sx={{ fontSize: "35px" }} />
             </IconButton>
           ) : null}
         </Box>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEventHandler } from "react";
+import React, { useState, ChangeEventHandler } from "react";
 import { Box, Typography, IconButton, TextField } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {
@@ -28,7 +28,7 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import { setLanguage } from "../../redux/features/langSlice";
+// import { setLanguage } from "../../redux/features/langSlice";
 
 export const AccountDeletion = () => {
   const dispatch = useAppDispatch();
@@ -38,16 +38,16 @@ export const AccountDeletion = () => {
   const [channels, setChannels] = useState<Channel[]>([]);
   // const [passwordErrText, setPasswordErrText] = useState("");
   // const [loading, setLoading] = useState(false);
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
 
   const [isOpen, setIsOpen] = useState(false);
-  let lang = "";
+  // let lang = "";
 
-  useEffect(() => {
-    i18n.changeLanguage(lang);
-    dispatch(setLanguage(lang));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang, i18n]);
+  // useEffect(() => {
+  //   i18n.changeLanguage(lang);
+  //   dispatch(setLanguage(lang));
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [lang, i18n]);
 
   const handleChange: ChangeEventHandler = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -162,15 +162,17 @@ export const AccountDeletion = () => {
         }}
       >
         <TextField
-          // fullWidth
+          sx={{ "& .MuiInputBase-input": { height: 25 }, width: 230 }}
           inputProps={{ inputMode: "text" }}
+          color="primary"
           id="password"
           label={t("パスワード")}
+          focused
           margin="normal"
           name="password"
           type="password"
           required
-          // helperText={passwordErrText}
+          helperText={t("パスワードを入力して下さい。")}
           // error={passwordErrText !== ""}
           // disabled={loading}
           size="small"
@@ -186,7 +188,7 @@ export const AccountDeletion = () => {
                 setIsOpen(true);
               }}
             >
-              <CheckCircleIcon sx={{ marginTop: "8px", fontSize: "35px" }} />
+              <CheckCircleIcon sx={{ fontSize: "35px" }} />
             </IconButton>
           ) : null}
         </Box>

@@ -90,6 +90,7 @@ const CreateShare = (props: Props) => {
               desc: inputText,
               imgURL: downloadURL,
               likes: [],
+              read: [],
               createdAt: serverTimestamp(),
               uid: user?.uid,
             }).then(function (docRef) {
@@ -105,6 +106,7 @@ const CreateShare = (props: Props) => {
         desc: inputText,
         imgURL: "",
         likes: [],
+        read: [],
         createdAt: serverTimestamp(),
         uid: user?.uid,
       }).then(function (docRef) {

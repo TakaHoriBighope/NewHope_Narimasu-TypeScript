@@ -75,6 +75,7 @@ const CreateInform = () => {
               desc: desc,
               imgURL: downloadURL,
               likes: [],
+              read: [],
               // createdAt: new Date(serverTimestamp() * 1000),
               createdAt: serverTimestamp(),
               uid: user.uid,
@@ -84,6 +85,18 @@ const CreateInform = () => {
           });
         }
       );
+    } else {
+      addDoc(collection(db, "infos"), {
+        desc: desc,
+        imgURL: "",
+        likes: [],
+        read: [],
+        // createdAt: new Date(serverTimestamp() * 1000),
+        createdAt: serverTimestamp(),
+        uid: user.uid,
+      }).then(function (docRef) {
+        console.log(docRef.id);
+      });
     }
     dispatch(closeModal());
   };

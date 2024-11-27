@@ -28,6 +28,7 @@ const CreateShare = (props: Props) => {
 
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
+  // const [displayName, setDisplayName] = useState<String>("");
   // const postLists = useAppSelector((state) => state.post);
 
   // const [loading, setLoading] = useState(false);
@@ -52,6 +53,22 @@ const CreateShare = (props: Props) => {
     i18n.changeLanguage(lang.lang);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang, i18n]);
+
+  // const docRef = doc(db, "users", String(user?.uid));
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const docSnap = await getDoc(docRef);
+  //     if (docSnap.exists()) {
+  //       // console.log("Document data:", docSnap.data().username);
+  //       setDisplayName(docSnap.data().username);
+  //     } else {
+  //       // docSnap.data() will be undefined in this case
+  //       console.log("No such document!");
+  //     }
+  //   };
+  //   fetchUser();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -93,6 +110,7 @@ const CreateShare = (props: Props) => {
               read: [],
               createdAt: serverTimestamp(),
               uid: user?.uid,
+              username: user?.displayName,
             }).then(function (docRef) {
               // const newPosts = [docRef, ...postLists];
               // dispatch(setPostList(newPosts));
@@ -109,6 +127,7 @@ const CreateShare = (props: Props) => {
         read: [],
         createdAt: serverTimestamp(),
         uid: user?.uid,
+        username: user?.displayName,
       }).then(function (docRef) {
         // const newPosts = [docRef, ...postLists];
         // dispatch(setPostList(newPosts));

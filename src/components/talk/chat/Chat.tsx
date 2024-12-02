@@ -143,9 +143,7 @@ const Chat = () => {
               <ChatHeader channelName={channelName} channelProp={channelProp} />
             </Box>
             {isGroupOpen.isGroupOpen ? <Sidebar /> : null}
-            <Box
-            // sx={{ height: "100vh", overflowY: "scroll" }}
-            >
+            <Box sx={{ height: "100vh", overflowY: "scroll" }}>
               {channelName ? (
                 channelProp === loginUser?.uid ||
                 channelMembers.includes(loginUser?.uid ?? "") ? (
@@ -176,31 +174,34 @@ const Chat = () => {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                width: "91%",
+                width: "95%",
                 position: "absolute",
                 bottom: 0,
 
                 justifyContent: "space-between",
-                padding: "15px",
+                padding: "10px",
                 backgroundColor: "#acb1be",
                 borderRadius: "5px",
-                margin: "15px",
+                marginLeft: "7px",
                 color: "gray",
               }}
             >
               <form style={{ flexGrow: 1 }}>
                 <TextareaAutosize
+                  // <input
+                  inputMode="text"
                   placeholder={t("メッセージを送信")}
                   style={{
                     boxSizing: "border-box",
-                    width: "370px",
+                    width: "280px",
                     fontFamily: "sans-serif",
-                    fontSize: "1.0rem",
+                    fontSize: "0.8rem",
                     fontWeight: "600",
                     lineHeight: "1.3",
                     padding: "12px",
                     borderRadius: "6px 6px 0 6px",
-                    marginLeft: "5px",
+                    marginTop: "4px",
+                    marginLeft: "2px",
                     color: "black",
                   }}
                   onChange={handleChange}
@@ -212,7 +213,7 @@ const Chat = () => {
                   event: React.MouseEvent<HTMLButtonElement, MouseEvent>
                 ) => sendMessage(event)}
               >
-                <SendIcon fontSize="large" />
+                <SendIcon fontSize="medium" />
               </IconButton>
             </Box>
           </Box>

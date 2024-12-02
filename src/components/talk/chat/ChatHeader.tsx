@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { openModal } from "../../../redux/features/modalSlice";
 import DisplayAllmembers from "../groupChannel/DisplayAllmembers";
 import { mediaQuery, useMediaQuery } from "../../../utiles/useMediaQuery";
@@ -39,72 +38,89 @@ const ChatHeader = (props: Props) => {
   });
 
   if (isSp) {
-    <Box
-      sx={{
-        display: "flex",
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "space-between",
-        paddingTop: "10px",
-      }}
-    >
-      {/* "chat-header_left" */}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography
-          sx={{ paddingLeft: "17px", fontSize: "1.2rem", color: "#393b52" }}
-        >
-          <StarIcon
-            sx={{
-              fontSize: "20px",
-              color: "blueviolet",
-            }}
-          />
-        </Typography>
-        <Typography
+    return (
+      <>
+        <Box
           sx={{
-            paddingLeft: "5px",
             display: "flex",
+            flexDirection: "row",
+            width: "100%",
             alignItems: "center",
-            gap: "12px",
-            color: "#393b52",
-            fontSize: "1.3rem",
-            fontWeight: "550",
+            justifyContent: "space-between",
+            paddingTop: "10px",
           }}
         >
-          {channelName}
-        </Typography>
-      </Box>
-      <Box sx={{ paddingRight: "25px" }}>
-        {channelProp === loginUser?.uid ? (
-          <IconButton sx={{ gap: "15px", color: "#7b7c85" }}>
-            <PersonAddIcon
-              onClick={() => dispatch(openModal())}
-              sx={{ margin: "0 10px 0  10px" }}
-            />
-          </IconButton>
-        ) : (
-          <IconButton
-            sx={{ gap: "15px", color: "#7b7c85", marginRight: "10px" }}
+          {/* "chat-header_left" */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row",
+            }}
           >
-            <HelpOutlineIcon />
-          </IconButton>
-        )}
-        {channelProp === loginUser?.uid ? (
-          <IconButton>
-            <PersonRemoveIcon sx={{ margin: "0 10px 0  10px" }} />
-          </IconButton>
-        ) : (
-          ""
-        )}
-      </Box>
-      {isOpen.isOpen ? <DisplayAllmembers channelName={channelName} /> : null}
-    </Box>;
+            <Typography
+              sx={{ paddingLeft: "17px", fontSize: "1.2rem", color: "#393b52" }}
+            >
+              <StarIcon
+                sx={{
+                  fontSize: "20px",
+                  color: "blueviolet",
+                }}
+              />
+            </Typography>
+            <Typography
+              sx={{
+                paddingLeft: "2px",
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                color: "#393b52",
+                fontSize: "1.2rem",
+                fontWeight: "550",
+                marginBottom: "4px",
+              }}
+            >
+              {channelName}
+            </Typography>
+          </Box>
+        </Box>
+        {/* <Box>
+          <Typography
+            sx={{ color: "#7b7c85", marginLeft: "10px", fontSize: "14px" }}
+          >
+            {propName}
+          </Typography>
+        </Box> */}
+        <Box>
+          <Box
+            sx={{
+              paddingRight: "25px",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {channelProp === loginUser?.uid ? (
+              <IconButton sx={{ gap: "15px", color: "#7b7c85" }}>
+                <PersonAddIcon onClick={() => dispatch(openModal())} />
+              </IconButton>
+            ) : (
+              ""
+            )}
+            {channelProp === loginUser?.uid ? (
+              <IconButton>
+                <PersonRemoveIcon />
+              </IconButton>
+            ) : (
+              ""
+            )}
+          </Box>
+          {isOpen.isOpen ? (
+            <DisplayAllmembers channelName={channelName} />
+          ) : null}
+        </Box>
+      </>
+    );
   }
 
   return (
@@ -167,9 +183,7 @@ const ChatHeader = (props: Props) => {
             />
           </IconButton>
         ) : (
-          <IconButton sx={{ gap: "15px", color: "#7b7c85" }}>
-            <HelpOutlineIcon />
-          </IconButton>
+          ""
         )}
         {channelProp === loginUser?.uid ? (
           <IconButton>

@@ -162,7 +162,7 @@ export const Navigation: FC<Props> = ({ open, id }) => {
             <ListItemButton>
               <Box>
                 <Link
-                  to={"/psettings"}
+                  to={"/MSettings"}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <Box

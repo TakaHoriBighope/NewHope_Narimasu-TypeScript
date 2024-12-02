@@ -131,13 +131,18 @@ const Topbar = () => {
                 height: 20,
                 position: "fixed",
                 top: "8px",
-                right: "20px",
+                right: "10px",
               }}
             />
           </IconButton>
           <Button
             onClick={() => dispatch(setLanguage(lang === "en" ? "ja" : "en"))}
-            sx={{ position: "fixed", top: "2px", right: "30px" }}
+            sx={{
+              position: "fixed",
+              top: "3px",
+              right: "25px",
+              color: "white",
+            }}
           >
             {t("言語")}
           </Button>

@@ -10,11 +10,13 @@ import { useTranslation } from "react-i18next";
 
 import { login } from "../../redux/features/userSlice";
 import StarIcon from "@mui/icons-material/Star";
+import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
 
 const ImageUploader = () => {
   const [loading, setLoading] = useState(false);
   const [isUpLoaded, setUpLoaded] = useState(false);
   const loginUser = useAppSelector((state) => state.user.user);
+  const isSp = useMediaQuery(mediaQuery.sp);
 
   const [currentUserData, setCurrentUserData] = useState({});
   const dispatch = useAppDispatch();
@@ -75,6 +77,143 @@ const ImageUploader = () => {
       }
     );
   };
+  if (isSp) {
+    return (
+      <>
+        <Box sx={{ flex: 4.0, maxWidth: 790, marginBottom: "50px" }}>
+          <Box
+            sx={{ display: "flex", alignItems: "center", marginTop: "15px" }}
+          >
+            <IconButton>
+              <StarIcon sx={{ fontSize: "25px", color: "blueviolet" }} />
+            </IconButton>
+            <Typography
+              sx={{
+                fontSize: "16px",
+                fontWeight: "600",
+                color: "#483c3c",
+              }}
+            >
+              {t("プロフィアル画像を登録する。")}
+            </Typography>
+          </Box>
+          {loading ? (
+            <Typography>{t("登録中...")}</Typography>
+          ) : (
+            <>
+              {isUpLoaded ? (
+                // <Typography>{t("登録完了！")}</Typography>
+                <Box
+                  style={{
+                    marginTop: "10px",
+                    border: "2px dashed #800",
+                    width: "120px",
+                    height: "120px",
+                    top: "20px",
+                    left: "150px",
+                    position: "relative",
+                    borderRadius: "60px",
+                  }}
+                >
+                  <Avatar
+                    src={loginUser?.profilePicture}
+                    sx={{
+                      width: "120px",
+                      height: "120px",
+                      position: "relative",
+                    }}
+                  />
+                </Box>
+              ) : (
+                <Box
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    textAlign: "center",
+                    border: "none",
+                    color: "gray",
+                    marginLeft: "10px",
+                  }}
+                >
+                  <Box sx={{ width: "350px" }}>
+                    <Typography style={{ fontWeight: "600" }}>
+                      {t("画像アップローダー")}
+                    </Typography>
+                    <Typography>{t("jpegかpngの画像ファイルを")}</Typography>
+                    <Typography style={{ marginBottom: 0 }}>
+                      {t("ここにドラッグ＆ドロップして下さい")}
+                    </Typography>
+                  </Box>
+                  <Box
+                    style={{
+                      marginTop: "10px",
+                      border: "2px dashed #800",
+                      width: "120px",
+                      height: "120px",
+                      padding: "35px 60px",
+                      position: "relative",
+                      borderRadius: "60px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <Box>
+                      <Avatar
+                        src={loginUser?.profilePicture}
+                        sx={{
+                          width: "120px",
+                          height: "120px",
+                          top: "-37px",
+                          left: "-60px",
+                          // padding: "35px",
+                          position: "relative",
+                        }}
+                      />
+                    </Box>
+                    <input
+                      style={{
+                        opacity: 0,
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        cursor: "pointer",
+                      }}
+                      multiple
+                      name="imageURL"
+                      type="file"
+                      accept=".png, .jpeg, .jpg"
+                      onChange={OnFileUploadtoFirebase}
+                    />
+                  </Box>
+                  <p>{t("または")}</p>
+                  <Button variant="contained" sx={{ backgroundColor: "#800" }}>
+                    {t("ファイルを選択")}
+                    <input
+                      style={{
+                        opacity: 0,
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        cursor: "pointer",
+                      }}
+                      type="file"
+                      accept=".png, .jpeg, .jpg"
+                      onChange={OnFileUploadtoFirebase}
+                    />
+                  </Button>
+                </Box>
+              )}
+            </>
+          )}
+        </Box>
+      </>
+    );
+  }
+
   return (
     <>
       <Box sx={{ flex: 4.0, maxWidth: 790 }}>

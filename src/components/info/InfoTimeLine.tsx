@@ -80,7 +80,15 @@ const InfoTimeLine = (props: Props) => {
   if (isSp) {
     return (
       <Box>
-        <Box>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <IconButton>
+            <StarIcon sx={{ fontSize: "25px", color: "blueviolet" }} />
+          </IconButton>
+          <Typography sx={{ fontWeight: "700", fontSize: "20px" }}>
+            {t("NH成増からのお知らせ")}
+          </Typography>
+        </Box>
+        <Box sx={{ height: "100vh", overflowY: "scroll" }}>
           {mode === "main" ? (
             <Fab
               size="small"
@@ -110,8 +118,8 @@ const InfoTimeLine = (props: Props) => {
         p: 2,
         flex: 4,
         maxWidth: 790,
-        height: "100vh",
-        overflowY: "scroll",
+        // height: "100vh",
+        // overflowY: "scroll",
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>

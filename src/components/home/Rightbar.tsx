@@ -63,12 +63,22 @@ const Rightbar = () => {
       sx={{
         p: 2,
         flex: 4,
-        maxWidth: 680,
+
+        // maxWidth: 680,
+        // height: "100vh",
+        // overflowY: "scroll",
       }}
     >
       {/* <HomeRightbar /> */}
-      <Box sx={{ flex: 4, maxWidth: 500 }}>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box>
+        <Box
+          sx={{
+            maxWidth: 680,
+            display: "flex",
+            alignItems: "center",
+            backgroundColor: "#f6e5e5",
+          }}
+        >
           <IconButton>
             <StarIcon sx={{ fontSize: "25px", color: "blueviolet" }} />
           </IconButton>
@@ -76,9 +86,11 @@ const Rightbar = () => {
             {t("NH成増からのお知らせ")}
           </Typography>
         </Box>
-        {infos.map((info) => (
-          <InfoList info={info} key={info.id} id={info.id} />
-        ))}
+        <Box sx={{ height: "100vh", overflowY: "scroll" }}>
+          {infos.map((info) => (
+            <InfoList info={info} key={info.id} id={info.id} />
+          ))}
+        </Box>
       </Box>
     </Box>
   );

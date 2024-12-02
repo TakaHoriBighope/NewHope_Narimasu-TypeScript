@@ -28,10 +28,12 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
+import { mediaQuery, useMediaQuery } from "../../utiles/useMediaQuery";
 // import { setLanguage } from "../../redux/features/langSlice";
 
 export const AccountDeletion = () => {
   const dispatch = useAppDispatch();
+  const isSp = useMediaQuery(mediaQuery.sp);
 
   //ログインしているユーザー(uid, email address, username(displayName))
   const [password, setPassword] = useState("");
@@ -136,6 +138,97 @@ export const AccountDeletion = () => {
         console.log(code, message);
       });
   };
+
+  if (isSp) {
+    return (
+      <Box>
+        <Box sx={{ display: "flex", alignItems: "center", marginTop: "15px" }}>
+          <IconButton>
+            <StarIcon sx={{ fontSize: "25px", color: "blueviolet" }} />
+          </IconButton>
+          <Typography
+            sx={{
+              fontSize: "16px",
+              fontWeight: "600",
+              color: "#483c3c",
+            }}
+          >
+            {t("アカウントを削除する。")}
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <TextField
+            sx={{ "& .MuiInputBase-input": { height: 25 }, width: 230 }}
+            inputProps={{ inputMode: "text" }}
+            color="primary"
+            id="password"
+            label={t("パスワード")}
+            focused
+            margin="normal"
+            name="password"
+            type="password"
+            required
+            helperText={t("パスワードを入力して下さい。")}
+            // error={passwordErrText !== ""}
+            // disabled={loading}
+            size="small"
+            onChange={handleChange}
+            value={password}
+          />
+          <Box>
+            {!!password ? (
+              <IconButton
+                sx={{ color: "#800 " }}
+                // onClick={() => onPressDeleteAccount(password)}
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                <CheckCircleIcon sx={{ fontSize: "35px" }} />
+              </IconButton>
+            ) : null}
+          </Box>
+
+          <Dialog
+            open={isOpen}
+            onClose={() => {
+              setIsOpen(false);
+            }}
+          >
+            <DialogTitle>{t("確認")}</DialogTitle>
+            <DialogContent>{t("本当によろしいですか？")}</DialogContent>
+            <DialogActions>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  setPassword("");
+                  setIsOpen(false);
+                }}
+              >
+                {t("キャンセル")}
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  onPressDeleteAccount(password);
+                  setIsOpen(false);
+                }}
+              >
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box>

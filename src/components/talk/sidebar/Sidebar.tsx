@@ -74,11 +74,9 @@ const Sidebar = () => {
             top: 38,
             left: 0,
             display: "flex",
-            width: "45%",
+            width: "65%",
             backgroundColor: "gray",
             fontWeight: "600",
-            height: "100vh",
-            // overflowY: "scroll",
           }}
         >
           <Box
@@ -107,26 +105,34 @@ const Sidebar = () => {
                   }}
                 >
                   <ExpandMoreOutlined />
-                  <Typography sx={{ fontWeight: "600", fontSize: "20px" }}>
-                    {t("グループチャンネル")}
+                  <Typography
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: "15px",
+                      padding: "-10px",
+                    }}
+                  >
+                    {t("グループCH.")}
                   </Typography>
                 </Box>
               </Box>
-              <List>
-                {channels.map((channel) => (
-                  <ChannelOnSidebar
-                    channel={channel}
-                    id={channel.id}
-                    key={channel.id}
-                  />
-                ))}
-              </List>
+              <Box sx={{ height: "100vh", overflowY: "scroll" }}>
+                <List>
+                  {channels.map((channel) => (
+                    <ChannelOnSidebar
+                      channel={channel}
+                      id={channel.id}
+                      key={channel.id}
+                    />
+                  ))}
+                </List>
+              </Box>
             </Box>
           </Box>
           <Fab
             size="small"
             aria-label="edit"
-            sx={{ color: "#2c517c", position: "fixed", bottom: 20, left: 20 }}
+            sx={{ color: "#2c517c", position: "fixed", top: 50, left: 160 }}
             onClick={() => dispatch(closeGroupModal())}
           >
             <CloseFullscreenIcon />

@@ -56,42 +56,60 @@ const ChatHeader = (props: Props) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              flexDirection: "row",
+              flexDirection: "column",
             }}
           >
-            <Typography
-              sx={{ paddingLeft: "17px", fontSize: "1.2rem", color: "#393b52" }}
-            >
-              <StarIcon
-                sx={{
-                  fontSize: "20px",
-                  color: "blueviolet",
-                }}
-              />
-            </Typography>
-            <Typography
+            <Box
               sx={{
-                paddingLeft: "2px",
                 display: "flex",
                 alignItems: "center",
-                gap: "12px",
-                color: "#393b52",
-                fontSize: "1.2rem",
-                fontWeight: "550",
-                marginBottom: "4px",
+                justifyContent: "center",
+                flexDirection: "row",
               }}
             >
-              {channelName}
-            </Typography>
+              <Typography
+                sx={{
+                  paddingLeft: "17px",
+                  fontSize: "1.2rem",
+                  color: "#393b52",
+                }}
+              >
+                <StarIcon
+                  sx={{
+                    fontSize: "20px",
+                    color: "blueviolet",
+                  }}
+                />
+              </Typography>
+              <Typography
+                sx={{
+                  paddingLeft: "2px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  color: "#393b52",
+                  fontSize: "1.2rem",
+                  fontWeight: "550",
+                  marginBottom: "4px",
+                }}
+              >
+                {channelName}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography
+                sx={{
+                  color: "#7b7c85",
+                  marginLeft: "10px",
+                  fontSize: "14px",
+                  marginTop: "-10px",
+                }}
+              >
+                {propName}
+              </Typography>
+            </Box>
           </Box>
         </Box>
-        {/* <Box>
-          <Typography
-            sx={{ color: "#7b7c85", marginLeft: "10px", fontSize: "14px" }}
-          >
-            {propName}
-          </Typography>
-        </Box> */}
         <Box>
           <Box
             sx={{

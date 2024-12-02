@@ -1,5 +1,5 @@
 import assets from "../../assets";
-import { Box, Fab, List, Typography } from "@mui/material";
+import { Box, Fab, IconButton, List, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { db } from "../../firebase";
@@ -16,6 +16,7 @@ import {
 import { closeSelectPosterModal } from "../../redux/features/selectPosterModalSlice";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { type User } from "../../types/user";
+import StarIcon from "@mui/icons-material/Star";
 
 const SelectPoster = () => {
   const lang = useAppSelector((state) => state.lang);
@@ -93,6 +94,30 @@ const SelectPoster = () => {
             backgroundColor: assets.colors.secondary,
           }}
         >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <IconButton>
+              <StarIcon
+                sx={{
+                  fontSize: "15px",
+                  color: "blueviolet",
+                }}
+              />
+            </IconButton>
+            <Typography
+              sx={{
+                fontSize: "small",
+                fontWeight: "550",
+              }}
+            >
+              {t("投稿者選択")}
+            </Typography>
+          </Box>
           <Box
             sx={{
               display: "flex",

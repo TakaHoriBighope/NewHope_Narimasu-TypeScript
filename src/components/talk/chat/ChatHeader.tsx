@@ -48,6 +48,7 @@ const ChatHeader = (props: Props) => {
             alignItems: "center",
             justifyContent: "space-between",
             paddingTop: "10px",
+            // backgroundColor: "#f4f4f4",
           }}
         >
           {/* "chat-header_left" */}

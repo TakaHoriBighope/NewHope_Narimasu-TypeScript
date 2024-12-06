@@ -22,11 +22,13 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import { openGroupModal } from "../../../redux/features/groupModalSlice";
 import { type Message } from "../../../types/message";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
+import { useVisualViewportHeightEffect } from "../../../utiles/useVisualViewportHeightEffect";
 
 const Chat = () => {
   const [inputText, setInputText] = useState<string>("");
   const isSp = useMediaQuery(mediaQuery.sp);
   const dispatch = useAppDispatch();
+  const UID2 = process.env.REACT_APP_UID2;
 
   const loginUser = useAppSelector((state) => state.user.user);
   const channelId = useAppSelector((state) => state.channel.channelId);
@@ -38,8 +40,8 @@ const Chat = () => {
   const isGroupOpen = useAppSelector((state) => state.groupModal);
   console.log(isGroupOpen);
   const [t] = useTranslation();
-
   const [messages, setMessages] = useState<Message[]>([]);
+  useVisualViewportHeightEffect();
 
   useEffect(() => {
     let collectionRef = collection(
@@ -145,6 +147,7 @@ const Chat = () => {
             {isGroupOpen.isGroupOpen ? <Sidebar /> : null}
             <Box sx={{ height: "100vh", overflowY: "scroll" }}>
               {channelName ? (
+                loginUser?.uid === UID2 ||
                 channelProp === loginUser?.uid ||
                 channelMembers.includes(loginUser?.uid ?? "") ? (
                   messages.map((message, index) => (
@@ -152,12 +155,13 @@ const Chat = () => {
                   ))
                 ) : (
                   <Typography
-                    style={{
-                      height: "100%",
+                    sx={{
+                      height: "150px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       color: "yellowGreen",
+                      marginLeft: "20px",
                     }}
                   >
                     {t("閲覧する権限はありません")}
@@ -177,7 +181,6 @@ const Chat = () => {
                 width: "95%",
                 position: "absolute",
                 bottom: 0,
-
                 justifyContent: "space-between",
                 padding: "10px",
                 backgroundColor: "#acb1be",
@@ -241,6 +244,7 @@ const Chat = () => {
       {/* chat-message */}
       <Box sx={{ height: "100vh", overflowY: "scroll" }}>
         {channelName ? (
+          loginUser?.uid === UID2 ||
           channelProp === loginUser?.uid ||
           channelMembers.includes(loginUser?.uid ?? "") ? (
             messages.map((message, index) => (

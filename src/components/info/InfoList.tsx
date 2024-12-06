@@ -1,6 +1,6 @@
 import { Box, Divider, IconButton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { format } from "timeago.js";
+// import { format } from "timeago.js";
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import GTranslateIcon from "@mui/icons-material/GTranslate";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -30,6 +30,9 @@ const InfoList = (props: Props) => {
 
   const dispatch = useAppDispatch();
   const isEditOpen = useAppSelector((state) => state.editModal);
+
+  const dateString = createdAt.toDate().toLocaleString("en-US");
+  let dateAry = dateString.split(",");
 
   useEffect(() => {
     //postしたユーザーのDataをget
@@ -100,9 +103,12 @@ const InfoList = (props: Props) => {
         <Typography sx={{ fontSize: "0.9rem", fontWeight: "550", pr: "35px" }}>
           {infoUserData?.username}
         </Typography>
-        <Typography sx={{ fontSize: "0.8rem", fontWeight: "550" }}>
+        <Typography
+          sx={{ fontSize: "0.8rem", fontWeight: "550", marginRight: "20px" }}
+        >
           {/* {format(createdAt.toDate())} */}
-          {format(new Date(createdAt?.toDate()).toLocaleString())}
+          {/* {format(new Date(createdAt?.toDate()).toLocaleString())} */}
+          {dateAry[0]}
         </Typography>
       </Box>
       <Typography
